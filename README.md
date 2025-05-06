@@ -1,5 +1,6 @@
 # MusicMap   
 MusicMap is a first, a purpose built platform to link emotions with music, and to share it socially with others in stories, or to add friends and see what they're up to. Through the app, you can also create blends, mixing your playlist together with someone else's, with the ability to select emotions, and have our algorithm find songs that you'll both like to create a playlist.  
+
 Another feature that the app includes is the ability to create your own playlists based on emotions, think a happy playlist filled with songs you associate upbeat feelings with, or a excited playlist, filled with high tempo upbeat music, making sure you have a playlist for every occasion. 
 
 ## Features
