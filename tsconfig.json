@@ -2,6 +2,7 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "esModuleInterop": true,
     "paths": {
       "@/*": [
         "./*"
@@ -12,6 +13,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-, "app/(tabs)/index.tsxs"  ]
+    "expo-env.d.ts",
+    "app/(tabs)/index.tsxs"
+  ]
 }
