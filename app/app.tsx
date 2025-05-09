@@ -11,7 +11,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="loading" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="login" component={Loginflow} />
+        <Stack.Screen name="Login" component={Loginflow} />
         <Stack.Screen name="home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -12,8 +12,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const functions = getFunctions(app);
+const functions = getFunctions(app, 'us-central1');
 
 export const lastfmAuth = httpsCallable(functions, "lastfmAuth");
 export const lastfmGetRecentTracks = httpsCallable(functions, "lastfmGetRecentTracks");
-export const lastfmGetUserInfo = httpsCallable(functions, "lastfmGetUserInfo"); 
+export const lastfmGetUserInfo = httpsCallable(functions, "lastfmGetUserInfo");
+export const storeEmotion = httpsCallable(functions, "storeEmotion");
+export const getEmotions = httpsCallable(functions, "getEmotions"); 

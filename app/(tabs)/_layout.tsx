@@ -19,10 +19,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Home',
+          title:'Home',
           tabBarIcon: ({ color }) => (
             <Text style={{ fontSize: 20, color }}>🏠</Text>
           ),
+          headerShown: false
         }}
       />
       <Tabs.Screen
@@ -59,6 +60,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Text style={{ fontSize: 20, color }}>🤩</Text>
           ),
+          headerShown: false
         }}
       />
     </Tabs>
