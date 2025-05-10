@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Modal, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Modal, ScrollView, Image } from 'react-native';
 import { BlurView } from 'expo-blur';
 
 interface Emotion {
@@ -10,60 +10,60 @@ interface Emotion {
 //TODO add in proper grouping for things like playlists
 const emotions: Emotion[] = [
     // joy/happy emotions
-    { name: 'Happy', emoji: '😊', color: '#FFD700' },
-    { name: 'Excited', emoji: '🤩', color: '#FF69B4' },
-    { name: 'Grateful', emoji: '🙏', color: '#FAD02E' },
-    { name: 'Proud', emoji: '😌', color: '#FFC107' },
-    { name: 'Playful', emoji: '😜', color: '#FFB347' },
-    { name: 'Hopeful', emoji: '🤞', color: '#FFD1DC' },
-    { name: 'Cheerful', emoji: '😁', color: '#FFE135' },
-    { name: 'Content', emoji: '🙂', color: '#FAF884' },
+    { name: 'Happy', emoji: require('../assets/emotions/happy.png'), color: '#FFD700' },
+    { name: 'Excited', emoji: require('../assets/emotions/excited.png'), color: '#FF69B4' },
+    { name: 'Grateful', emoji: require('../assets/emotions/gratitude.png'), color: '#FAD02E' },
+    { name: 'Proud', emoji: require('../assets/emotions/proud.png'), color: '#FFC107' },
+    { name: 'Playful', emoji: require('../assets/emotions/playful.png'), color: '#FFB347' },
+    { name: 'Hopeful', emoji: require('../assets/emotions/hopeful.png'), color: '#FFD1DC' },
+    { name: 'Cheerful', emoji: require('../assets/emotions/cheerful.png'), color: '#FFE135' },
+    { name: 'Content', emoji: require('../assets/emotions/content.png'), color: '#FAF884' },
   
     // sad/depressed emotions
-    { name: 'Sad', emoji: '😢', color: '#4682B4' },
-    { name: 'Lonely', emoji: '😔', color: '#6CA0DC' },
-    { name: 'Hopeless', emoji: '💧', color: '#5D8AA8' },
-    { name: 'Depressed', emoji: '😞', color: '#708090' },
-    { name: 'Tired', emoji: '😴', color: '#A9A9A9' },
-    { name: 'Nostalgic', emoji: '🥹', color: '#F0E68C' },
-    { name: 'Disappointed', emoji: '😕', color: '#B0C4DE' },
-    { name: 'Heartbroken', emoji: '💔', color: '#B22222' },
+    { name: 'Sad', emoji: require('../assets/emotions/sad.png'), color: '#4682B4' },
+    { name: 'Lonely', emoji: require('../assets/emotions/lonely.png'), color: '#6CA0DC' },
+    { name: 'Hopeless', emoji: require('../assets/emotions/hopeless.png'), color: '#5D8AA8' },
+    { name: 'Depressed', emoji: require('../assets/emotions/depressed.png'), color: '#708090' },
+    { name: 'Tired', emoji: require('../assets/emotions/tired.png'), color: '#A9A9A9' },
+    { name: 'Nostalgic', emoji: '🥹', color: '#F0E68C' }, //TODO add in proper emoji
+    { name: 'Disappointed', emoji: require('../assets/emotions/dissapointed.png'), color: '#B0C4DE' },
+    { name: 'Heartbroken', emoji: require('../assets/emotions/heartbroken.png'), color: '#B22222' },
   
     // angr & bitter emotions
-    { name: 'Angry', emoji: '😠', color: '#FF4500' },
-    { name: 'Frustrated', emoji: '😤', color: '#E25822' },
-    { name: 'Irritated', emoji: '😒', color: '#CD5C5C' },
-    { name: 'Annoyed', emoji: '😑', color: '#E9967A' },
-    { name: 'Resentful', emoji: '😡', color: '#C41E3A' },
-    { name: 'Jealous', emoji: '🫤', color: '#9ACD32' },
-    { name: 'Bitter', emoji: '😬', color: '#C71585' },
-    { name: 'Defensive', emoji: '🛡️', color: '#A52A2A' },
+    { name: 'Angry', emoji: require('../assets/emotions/angry.png'), color: '#FF4500' },
+    { name: 'Frustrated', emoji: require('../assets/emotions/frustrated.png'), color: '#E25822' },
+    { name: 'Irritated', emoji: require('../assets/emotions/irritated.png'), color: '#CD5C5C' },
+    { name: 'Annoyed', emoji: require('../assets/emotions/annoyed.png'), color: '#E9967A' },
+    { name: 'Resentful', emoji: require('../assets/emotions/resentful.png'), color: '#C41E3A' },
+    { name: 'Jealous', emoji: '🫤', color: '#9ACD32' }, //TODO add in proper emoji
+    { name: 'Bitter', emoji: require('../assets/emotions/bitter.png'), color: '#C71585' },
+    { name: 'Defensive', emoji: require('../assets/emotions/defensive.png'), color: '#A52A2A' },
   
     // fearful emotions, anxious
-    { name: 'Anxious', emoji: '😰', color: '#DDA0DD' },
-    { name: 'Nervous', emoji: '😬', color: '#DA70D6' },
-    { name: 'Fearful', emoji: '😱', color: '#BA55D3' },
-    { name: 'Insecure', emoji: '😟', color: '#B0A8B9' },
-    { name: 'Worried', emoji: '😟', color: '#D8BFD8' },
-    { name: 'Overwhelmed', emoji: '🥴', color: '#B497BD' },
-    { name: 'Doubtful', emoji: '🤨', color: '#BBA0CA' },
-    { name: 'Embarrassed', emoji: '😳', color: '#FFB6C1' },
+    { name: 'Anxious', emoji: require('../assets/emotions/anxious.png'), color: '#DDA0DD' },
+    { name: 'Nervous', emoji: '😬', color: '#DA70D6' }, //TODO add in proper emoji
+    { name: 'Fearful', emoji: require('../assets/emotions/fearful.png'), color: '#BA55D3' },
+    { name: 'Insecure', emoji: require('../assets/emotions/insecure.png'), color: '#B0A8B9' },
+    { name: 'Worried', emoji: '😟', color: '#D8BFD8' }, //TODO add in proper emoji
+    { name: 'Overwhelmed', emoji: require('../assets/emotions/overwhelmed.png'), color: '#B497BD' },
+    { name: 'Doubtful', emoji: require('../assets/emotions/doubtful.png'), color: '#BBA0CA' },
+    { name: 'Embarrassed', emoji: require('../assets/emotions/embarrased.png'), color: '#FFB6C1' },
   
     // loving and affectionate emotions
-    { name: 'Loving', emoji: '❤️', color: '#FF6F61' },
-    { name: 'Affectionate', emoji: '🥰', color: '#FF85A1' },
-    { name: 'Warm', emoji: '🤗', color: '#FFC0CB' },
-    { name: 'Trusting', emoji: '🤝', color: '#F4A460' },
-    { name: 'Caring', emoji: '💞', color: '#F08080' },
-    { name: 'Connected', emoji: '🔗', color: '#FF69B4' },
-    { name: 'Safe', emoji: '🛏️', color: '#FFDAB9' },
+    { name: 'Loving', emoji: require('../assets/emotions/loving.png'), color: '#FF6F61' },
+    { name: 'Affectionate', emoji: require('../assets/emotions/affectionate.png'), color: '#FF85A1' }, //TODO add in proper emoji
+    { name: 'Warm', emoji: require('../assets/emotions/warm.png'), color: '#FFC0CB' },
+    { name: 'Trusting', emoji: require('../assets/emotions/trusting.png'), color: '#F4A460' },
+    { name: 'Caring', emoji: require('../assets/emotions/caring.png'), color: '#F08080' },
+    { name: 'Connected', emoji: require('../assets/emotions/connected.png'), color: '#FF69B4' },
+    { name: 'Safe', emoji: require('../assets/emotions/safe.png'), color: '#FFDAB9' },
   
     // calm and relaxed emotions
-    { name: 'Calm', emoji: '😌', color: '#98FB98' },
-    { name: 'Relaxed', emoji: '😎', color: '#87CEEB' },
-    { name: 'Peaceful', emoji: '🕊️', color: '#C1E1C1' },
-    { name: 'Serene', emoji: '🌿', color: '#E0FFF0' },
-    { name: 'Balanced', emoji: '⚖️', color: '#CFECEC' },
+    { name: 'Calm', emoji: require('../assets/emotions/calm.png'), color: '#98FB98' },
+    { name: 'Relaxed', emoji: require('../assets/emotions/relaxed.png'), color: '#87CEEB' },
+    { name: 'Peaceful', emoji: require('../assets/emotions/peaceful.png'), color: '#C1E1C1' },
+    { name: 'Serene', emoji: require('../assets/emotions/serene.png'), color: '#E0FFF0' },
+    { name: 'Balanced', emoji: require('../assets/emotions/balanced.png'), color: '#CFECEC' },
     { name: 'Mindful', emoji: '🧘', color: '#BFD8B8' },
     { name: 'Grounded', emoji: '🌳', color: '#90EE90' },
   
@@ -118,7 +118,14 @@ export default function EmotionSelector({ visible, onClose, onSelectEmotion }: E
                   style={[styles.emotionButton, { backgroundColor: emotion.color }]}
                   onPress={() => onSelectEmotion(emotion)}
                 >
-                  <Text style={styles.emoji}>{emotion.emoji}</Text>
+                  {typeof emotion.emoji === 'string' ? (
+                    <Text style={styles.emoji}>{emotion.emoji}</Text>
+                  ) : (
+                    <Image 
+                      source={emotion.emoji} 
+                      style={styles.emojiImage}
+                    />
+                  )}
                   <Text style={styles.emotionName}>{emotion.name}</Text>
                 </Pressable>
               ))}
@@ -149,14 +156,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: 'normal',
     color: '#000000',
   },
   closeButton: {
     position: 'absolute',
-    right: 8,
-    top: 3
+    right: 1,
+    top: -5
   },
   closeButtonText: {
     fontSize: 26,
@@ -172,7 +179,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   emotionButton: {
-    width: '28%',
+    width: '31.8%',
     aspectRatio: 1,
     marginBottom: 15,
     borderRadius: 15,
@@ -191,6 +198,12 @@ const styles = StyleSheet.create({
   emoji: {
     fontSize: 40,
     marginBottom: 10,
+  },
+  emojiImage: {
+    width: 40,
+    height: 40,
+    marginBottom: 10,
+    resizeMode: 'contain',
   },
   emotionName: {
     fontSize: 16,

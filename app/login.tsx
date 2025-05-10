@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 import { lastfmAuth } from '@/utils/firebase';
 
-export default function LoginScreen({ navigation }: { navigation: any }) {
+export default function LoginScreen() {
+  const router = useRouter();
   const [user, setUser] = useState('');
   const [pwd, setPwd] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
       
       await AsyncStorage.setItem('lastfm_session_key', sessionKey);
       console.log('sessionKey:', sessionKey);
-      navigation.replace('home', { sessionKey });
+      router.replace('/(tabs)/home');
     } catch (err) {
       console.log('Login error:', err);
       Alert.alert('Oops!', "You couldn't be logged in, please check your credentials and try again.");
@@ -90,4 +92,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-});
+}); 

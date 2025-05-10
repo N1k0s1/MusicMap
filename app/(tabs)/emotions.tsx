@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
-  View, Text, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator 
+  View, Text, Platform, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator 
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import { getEmotions } from '@/utils/firebase';
 
 interface EmotionEntry {
@@ -20,10 +21,6 @@ export default function EmotionsScreen() {
   const router = useRouter();
   const [emotions, setEmotions] = useState<EmotionEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    loadEmotions();
-  }, []);
 
   const loadEmotions = async () => {
     try {
@@ -42,6 +39,12 @@ export default function EmotionsScreen() {
       setIsLoading(false);
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadEmotions();
+    }, [])
+  );
 
   const formatDate = (timestamp: number) => {
     return new Date(timestamp).toLocaleDateString('en-US', {
@@ -96,6 +99,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: 'white',
+    ...(Platform.OS === 'ios' && {
+      height: 2,
+      paddingBottom: 10,
+    })
   },
   loadingContainer: {
     flex: 1,
@@ -108,6 +115,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     color: 'black',
+    backgroundColor: 'white',
+    ...(Platform.OS === 'ios' && {
+      marginTop: 40,
+    })
   },
   emotionList: {
     paddingBottom: 20,

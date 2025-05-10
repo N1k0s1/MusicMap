@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  View, Text, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator, Alert 
+  View, Platform, Text, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator, Alert 
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -84,13 +84,16 @@ export default function Home() {
         return;
       }
 
+      // First fetch user info and emotions
       await Promise.all([
         fetchUserInfo(sessionKey),
-        fetchRecentTracks(sessionKey),
         fetchEmotions(sessionKey)
       ]);
+
+      // Then fetch tracks after emotions are loaded
+      await fetchRecentTracks(sessionKey);
     } catch (error) {
-      console.error('Error with your session key, please try again later!!', error);
+      console.error('error with the session key, please try again later!!', error);
       router.replace('/login');
     }
   };
@@ -149,7 +152,7 @@ export default function Home() {
         setHasMore(false);
       }
     } catch (err) {
-      console.error('Error fetching recent tracks', err);
+      console.error('error fetching recent tracks', err);
       router.replace('/login');
     } finally {
       setIsLoading(false);
@@ -162,14 +165,11 @@ export default function Home() {
       const data = result.data as { emotions: EmotionEntry[] };
       
       const emotionsMap: {[key: string]: string} = {};
-      const timestamps: {[key: string]: number} = {};
       
       data.emotions.forEach(entry => {
-        const baseTrackId = entry.trackId.split('-').slice(0, -1).join('-');
-        if (!emotionsMap[baseTrackId] || entry.timestamp > timestamps[baseTrackId]) {
-          emotionsMap[baseTrackId] = entry.emotion;
-          timestamps[baseTrackId] = entry.timestamp;
-        }
+        // Create a consistent track ID format
+        const trackId = `${entry.trackTitle}-${entry.artist}`;
+        emotionsMap[trackId] = entry.emotion;
       });
       
       setTrackEmotions(emotionsMap);
@@ -195,11 +195,14 @@ export default function Home() {
           emotion: emotion.name
         });
 
-        // update local state
-        setTrackEmotions(prev => ({
-          ...prev,
-          [selectedTrack.id]: emotion.name
-        }));
+        // update locally immediately with the new emotion
+        setTrackEmotions(prev => {
+          const newEmotions = {
+            ...prev,
+            [selectedTrack.id]: emotion.name
+          };
+          return newEmotions;
+        });
 
         // show success feedback
         Alert.alert('Success', `Added ${emotion.name} to ${selectedTrack.title}`);
@@ -212,46 +215,65 @@ export default function Home() {
   };
 
   // render songs in the list
-  const renderSong = ({ item }: { item: Track }) => (
-    <ImageBackground
-      source={{ uri: item.albumArt }}
-      style={styles.songContainer}
-      imageStyle={styles.songBackgroundImage}
-    >
-      <BlurView
-        intensity={7}
-        style={[styles.blurView, { backgroundColor: 'rgba(0,0,0,0.5)' }]}
-        experimentalBlurMethod="dimezisBlurView"
+  const renderSong = ({ item }: { item: Track }) => {
+    const trackId = `${item.title}-${item.artist}`;
+    const hasEmotion = trackEmotions[trackId];
+    
+    return (
+      <ImageBackground
+        source={{ uri: item.albumArt }}
+        style={styles.songContainer}
+        imageStyle={styles.songBackgroundImage}
       >
-        <View style={styles.songDetails}>
-          <Text style={[styles.songTitle, { textShadowColor: 'rgba(0,0,0,0.75)', textShadowOffset: {width: -1, height: 1}, textShadowRadius: 10 }]}>
-            {item.title}
-          </Text>
-          <Text style={[styles.songArtist, { textShadowColor: 'rgba(0,0,0,0.75)', textShadowOffset: {width: -1, height: 1}, textShadowRadius: 10 }]}>
-            {item.artist}
-          </Text>
-          <View style={styles.emotionContainer}>
-            {trackEmotions[item.id] && (
-              <View style={styles.currentEmotion}>
-                <Text style={styles.currentEmotionText}>{trackEmotions[item.id]}</Text>
-              </View>
-            )}
-          <Pressable 
-            style={styles.emotionButton}
-            onPress={() => {
-              setSelectedTrack(item);
-              setIsEmotionSelectorVisible(true);
-            }}
-          >
-              <Text style={styles.emotionButtonText}>
-                {trackEmotions[item.id] ? 'Change Emotion' : 'Add Emotion'}
+        <BlurView
+          intensity={7}
+          style={[styles.blurView, { backgroundColor: 'rgba(0,0,0,0.5)' }]}
+          experimentalBlurMethod="dimezisBlurView"
+        >
+          <View style={styles.songContent}>
+            <View style={styles.albumArtContainer}>
+              <ImageBackground
+                source={{ uri: item.albumArt }}
+                style={styles.albumArt}
+                imageStyle={styles.albumArtImage}
+              />
+              <BlurView
+                intensity={0}
+                style={styles.albumArtBlur}
+                experimentalBlurMethod="dimezisBlurView"
+              />
+            </View>
+            <View style={styles.songDetails}>
+              <Text style={[styles.songTitle, { textShadowColor: 'rgba(0,0,0,0.75)', textShadowOffset: {width: -1, height: 1}, textShadowRadius: 10 }]}>
+                {item.title}
               </Text>
-          </Pressable>
+              <Text style={[styles.songArtist, { textShadowColor: 'rgba(0,0,0,0.75)', textShadowOffset: {width: -1, height: 1}, textShadowRadius: 10 }]}>
+                {item.artist}
+              </Text>
+              <View style={styles.emotionContainer}>
+                {hasEmotion && (
+                  <View style={styles.currentEmotion}>
+                    <Text style={styles.currentEmotionText}>{hasEmotion}</Text>
+                  </View>
+                )}
+                <Pressable 
+                  style={styles.emotionButton}
+                  onPress={() => {
+                    setSelectedTrack(item);
+                    setIsEmotionSelectorVisible(true);
+                  }}
+                >
+                  <Text style={styles.emotionButtonText}>
+                    {hasEmotion ? 'Change Emotion' : 'Add Emotion'}
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
-        </View>
-      </BlurView>
-    </ImageBackground>
-  );
+        </BlurView>
+      </ImageBackground>
+    );
+  };
 // todo make better ones, these are all from songs in my playlist, possibly make it pull from user tracks using ai for the best lyrics for startup? would be cool
   return (
     <View style={styles.container}>
@@ -314,13 +336,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white',  // could make dark/light mode later
+    backgroundColor: 'white',
+  // could make dark/light mode later
   },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 6,
     color: 'black',
+    ...(Platform.OS === 'ios' && {
+      marginTop: 40,
+    })
   },
   subHeader: {
     fontSize: 16,
@@ -330,7 +356,7 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   songList: {
-    paddingBottom: 20,
+    paddingBottom: 19,
   },
   songContainer: {
     marginBottom: 15,
@@ -344,25 +370,56 @@ const styles = StyleSheet.create({
   blurView: {
     flex: 1,
     justifyContent: 'center',
-    padding: 10,
+    padding: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  songContent: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
+  },
+  albumArtContainer: {
+    width: 121,
+    height: 121,
+    marginLeft: 0,
+    borderRadius: 13,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  albumArt: {
+    width: '100%',
+    height: '100%',
+  },
+  albumArtImage: {
+    borderRadius: 13,
+  },
+  albumArtBlur: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   songDetails: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 15,
   },
   songTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     color: 'white',
+    backgroundColor: 'rgba(52, 52, 52, 0.04)',
     fontFamily: 'Encode Sans Semi Expanded',  // need to fix font later
   },
   songArtist: {
     fontSize: 14,
     color: 'lightgray',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     marginBottom: 10,
     fontFamily: 'Encode Sans Semi Expanded',
   },
@@ -389,6 +446,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 15,
+    alignSelf: 'flex-end',
   },
   currentEmotionText: {
     color: 'white',
@@ -400,3 +458,6 @@ const styles = StyleSheet.create({
 // * to-dos
 // - Better loading states
 // - Pull to refresh?
+// - Add in album artwork on the left.
+// - Add in profile pictures.
+// - add in the search function
