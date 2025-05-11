@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { lastfmGetRecentTracks, lastfmGetUserInfo, storeEmotion, getEmotions } from '@/utils/firebase';
 import EmotionSelector from '@/components/EmotionSelector';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface Track {
   id: string;
@@ -75,6 +76,18 @@ export default function Home() {
   useEffect(() => {
     checkSessionAndLoadData();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadEmotions = async () => {
+        const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
+        if (sessionKey) {
+          await fetchEmotions(sessionKey);
+        }
+      };
+      loadEmotions();
+    }, [])
+  );
 
   const checkSessionAndLoadData = async () => {
     try {
@@ -205,7 +218,7 @@ export default function Home() {
         });
 
         // show success feedback
-        Alert.alert('Success', `Added ${emotion.name} to ${selectedTrack.title}`);
+        Alert.alert('Success', `Added ${emotion.name} to ${selectedTrack.title} by ${selectedTrack.artist}`);
       } catch (error) {
         console.error('Error storing emotion:', error);
         Alert.alert('Error', 'Failed to store emotion. Please try again.');
@@ -251,20 +264,15 @@ export default function Home() {
                 {item.artist}
               </Text>
               <View style={styles.emotionContainer}>
-                {hasEmotion && (
-                  <View style={styles.currentEmotion}>
-                    <Text style={styles.currentEmotionText}>{hasEmotion}</Text>
-                  </View>
-                )}
                 <Pressable 
-                  style={styles.emotionButton}
+                  style={[styles.currentEmotion, !hasEmotion && styles.addEmotionButton]}
                   onPress={() => {
                     setSelectedTrack(item);
                     setIsEmotionSelectorVisible(true);
                   }}
                 >
-                  <Text style={styles.emotionButtonText}>
-                    {hasEmotion ? 'Change Emotion' : 'Add Emotion'}
+                  <Text style={styles.currentEmotionText}>
+                    {hasEmotion ? hasEmotion : 'Add Emotion'}
                   </Text>
                 </Pressable>
               </View>
@@ -280,7 +288,6 @@ export default function Home() {
       <Text style={styles.header}>Hi {userInfo?.realname || userInfo?.name || 'there'}!</Text>
       <Text style={styles.subHeader}>
         {[
-          "Let me learn the hard way and cut it close sometimes.",
           "So I'll love you till my lungs give out, I ain't lyin'.",
           "Blame it on the black star. Blame it on the falling sky.",
           "This machine will not communicate. These thoughts.",
@@ -297,8 +304,10 @@ export default function Home() {
           "Is this the real life? Is this just fantasy?",
           "Can you feel the light inside? Can you feel that fire?",
           "Your first name is Free, last name is Dom.",
-          "Mais ma meilleure ennemie c'est toi."
-        ][Math.floor(Math.random() * 16)]}
+          "Mais ma meilleure ennemie c'est toi.",
+          "My heart is yours, it's you that I hold on to.",
+          "Forget about your house of cards, and I'll do mine"
+        ][Math.floor(Math.random() * 17)]}
       </Text>
       
       <FlatList
@@ -350,7 +359,7 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 16,
-    color: 'gray',
+    color: 'black',
     marginBottom: 25,
     flexWrap: 'wrap',
     flexShrink: 0,
@@ -423,23 +432,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: 'Encode Sans Semi Expanded',
   },
-  emotionButton: {
-    backgroundColor: '#000000',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-    alignSelf: 'flex-end',
-  },
-  emotionButtonText: {
-    color: 'white',
-    fontFamily: 'Encode Sans Semi Expanded',
-    fontSize: 14,
-  },
   emotionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap: 10,
   },
   currentEmotion: {
     backgroundColor: '#d51007',
@@ -447,6 +443,9 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 15,
     alignSelf: 'flex-end',
+  },
+  addEmotionButton: {
+    backgroundColor: '#000000',
   },
   currentEmotionText: {
     color: 'white',
