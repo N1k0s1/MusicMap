@@ -64,8 +64,8 @@ const emotions: Emotion[] = [
     { name: 'Peaceful', emoji: require('../assets/emotions/peaceful.png'), color: '#C1E1C1' },
     { name: 'Serene', emoji: require('../assets/emotions/serene.png'), color: '#E0FFF0' },
     { name: 'Balanced', emoji: require('../assets/emotions/balanced.png'), color: '#CFECEC' },
-    { name: 'Mindful', emoji: '🧘', color: '#BFD8B8' },
-    { name: 'Grounded', emoji: '🌳', color: '#90EE90' },
+    { name: 'Mindful', emoji: require('../assets/emotions/mindful.png'), color: '#BFD8B8' },
+    { name: 'Grounded', emoji: require('../assets/emotions/grounded.png'), color: '#90EE90' },
   
     // focused and motivated emotions
     { name: 'Focused', emoji: '🎯', color: '#9370DB' },
@@ -211,3 +211,5 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 }); 
+
+// todo - fix the rest of the emotions, maybe find a better way to have the interface for this working?

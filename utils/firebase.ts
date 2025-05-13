@@ -1,6 +1,6 @@
 import {getFunctions, httpsCallable} from "firebase/functions";
 import {initializeApp} from "firebase/app";
-import googleServices from "../google-services.json";
+import googleServices from "../../google-services.json";
 
 const firebaseConfig = {
   apiKey: googleServices.client[0].api_key[0].current_key,

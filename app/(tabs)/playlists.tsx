@@ -29,3 +29,5 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
+
+// todo - everything

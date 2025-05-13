@@ -504,5 +504,6 @@ const styles = StyleSheet.create({
 // * to-dos
 // - Better loading states
 // - Pull to refresh?
-// - Add in profile pictures.
 // - add in the search function - kind of works but could be better
+// - add in the playlist function - nothing there
+// - add in the social function, nothing there

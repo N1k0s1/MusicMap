@@ -227,3 +227,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   }
 })
+// todo - add in profile pictures, need to fix the search function some more, especially the main user ui when opening it, maybe show popular songs?
