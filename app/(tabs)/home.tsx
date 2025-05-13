@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  View, Platform, Text, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator, Alert 
+  View, Platform, Text, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator, Alert, Image 
 } from 'react-native';
 import { BlurView } from 'expo-blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +8,8 @@ import { useRouter } from 'expo-router';
 import { lastfmGetRecentTracks, lastfmGetUserInfo, storeEmotion, getEmotions } from '@/utils/firebase';
 import EmotionSelector from '@/components/EmotionSelector';
 import { useFocusEffect } from '@react-navigation/native';
+import ProfilePicture from '@/components/ProfilePicture';
+import SettingsMenu from '@/components/SettingsMenu';
 
 interface Track {
   id: string;
@@ -19,6 +21,7 @@ interface Track {
 interface UserInfo {
   name: string;
   realname: string;
+  profilePicture?: string;
 }
 
 interface Emotion {
@@ -31,6 +34,9 @@ interface LastFMUserResponse {
   user: {
     name: string;
     realname: string;
+    image?: Array<{
+      "#text": string;
+    }>;
   };
 }
 
@@ -72,6 +78,7 @@ export default function Home() {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
   const [isEmotionSelectorVisible, setIsEmotionSelectorVisible] = useState(false);
   const [trackEmotions, setTrackEmotions] = useState<{[key: string]: string}>({});
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     checkSessionAndLoadData();
@@ -119,7 +126,8 @@ export default function Home() {
       if (data.user) {
         setUserInfo({
           name: data.user.name,
-          realname: data.user.realname
+          realname: data.user.realname,
+          profilePicture: data.user.image?.[3]?.["#text"]
         });
       }
     } catch (err) {
@@ -285,9 +293,30 @@ export default function Home() {
 // todo make better ones, these are all from songs in my playlist, possibly make it pull from user tracks using ai for the best lyrics for startup? would be cool
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Hi {userInfo?.realname || userInfo?.name || 'there'}!</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Hi {userInfo?.realname || userInfo?.name || 'there'}!</Text>
+        {userInfo?.profilePicture && (
+          <ProfilePicture 
+            profilePicture={userInfo.profilePicture}
+            size={40}
+            onPress={() => setShowSettings(true)}
+          />
+        )}
+      </View>
       <Text style={styles.subHeader}>
         {[
+          "So I'll love you till my lungs give out, I ain't lyin'.",
+          "Blame it on the black star. Blame it on the falling sky.",
+          "This machine will not communicate. These thoughts.",
+          "Comes like a comet, suckered you but not your friends.",
+          "Don't leave me high, Don't leave me dry.",
+          "I'll see you on the dark side of the moon.",
+          "Before you're lost between the notes, the beat goes round and round.",
+          "Ticking away, the moments that make up a dull day.",
+          "This is ground control to Major Tom.",
+          "Is this the real life? Is this just fantasy?",
+        ][Math.floor(Math.random() * 10)]}
+{/*                 {[
           "So I'll love you till my lungs give out, I ain't lyin'.",
           "Blame it on the black star. Blame it on the falling sky.",
           "This machine will not communicate. These thoughts.",
@@ -307,9 +336,14 @@ export default function Home() {
           "Mais ma meilleure ennemie c'est toi.",
           "My heart is yours, it's you that I hold on to.",
           "Forget about your house of cards, and I'll do mine"
-        ][Math.floor(Math.random() * 17)]}
+        ][Math.floor(Math.random() * 17)]} */}
       </Text>
       
+      <SettingsMenu 
+        visible={showSettings} 
+        onClose={() => setShowSettings(false)} 
+      />
+
       <FlatList
         data={recentTracks.filter((track, index, self) => 
           index === self.findIndex((t) => 
@@ -348,12 +382,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   // could make dark/light mode later
   },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 6,
     color: 'black',
-    ...(Platform.OS === 'ios' && {
+    marginBottom: 6,
+        ...(Platform.OS === 'ios' && {
       marginTop: 40,
     })
   },
@@ -452,11 +492,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  profilePicture: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginLeft: 10,
+    alignSelf: 'flex-end',
+  },
 });
 
 // * to-dos
 // - Better loading states
 // - Pull to refresh?
-// - Add in album artwork on the left.
 // - Add in profile pictures.
-// - add in the search function
+// - add in the search function - kind of works but could be better
