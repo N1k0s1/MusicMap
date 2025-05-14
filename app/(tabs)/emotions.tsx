@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { 
-  View, Text, Platform, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator 
+  View, Text, Platform, StyleSheet, FlatList, Pressable, ImageBackground, ActivityIndicator, Alert 
 } from 'react-native';
-import { BlurView } from 'expo-blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
-import { getEmotions } from '@/utils/firebase';
+import {useRouter} from 'expo-router';
+import {useFocusEffect} from '@react-navigation/native';
+import {getEmotions, deleteEmotion} from '@/utils/firebase';
+import {emotionData} from '@/components/emotionData';
 
 interface EmotionEntry {
   id: string;
@@ -31,10 +31,10 @@ export default function EmotionsScreen() {
       }
 
       const result = await getEmotions({ sessionKey });
-      const data = result.data as { emotions: EmotionEntry[] };
+      const data = result.data as {emotions: EmotionEntry[]};
       setEmotions(data.emotions);
     } catch (error) {
-      console.error('error loading emotions womp womp', error);
+      console.error('error loading emotions womp womp :skulk:', error);
     } finally {
       setIsLoading(false);
     }
@@ -55,18 +55,58 @@ export default function EmotionsScreen() {
     });
   };
 
-  const renderEmotion = ({ item }: { item: EmotionEntry }) => (
-    <View style={styles.emotionContainer}>
-      <View style={styles.trackInfo}>
-        <Text style={styles.trackTitle}>{item.trackTitle}</Text>
-        <Text style={styles.artist}>{item.artist}</Text>
-        <Text style={styles.timestamp}>{formatDate(item.timestamp)}</Text>
+  const handleDeleteEmotion = async (emotionId: string) => {
+    Alert.alert(
+      'Delete Emotion','Are you sure you want to delete this emotion?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
+              if (!sessionKey) return;
+
+              await deleteEmotion({ sessionKey, emotionId });
+              setEmotions(prev => prev.filter(e => e.id !== emotionId));
+              
+              Alert.alert('Emotion deleted successfully');
+            } catch (error) {
+              console.error('Error deleting emotion', error);
+              Alert.alert('Error', 'Failed to delete emotion');
+            }
+          }
+        }
+      ]
+    );
+  };
+
+  const renderEmotion = ({ item }: { item: EmotionEntry }) => {
+    const emotion = emotionData.find(e => e.name.toLowerCase() === item.emotion.toLowerCase());
+    const backgroundColor = emotion ? emotion.color : '#000000';
+
+    return (
+      <View style={styles.emotionContainer}>
+        <View style={styles.trackInfo}>
+          <Text style={styles.trackTitle}>{item.trackTitle}</Text>
+          <Text style={styles.artist}>{item.artist}</Text>
+          <Text style={styles.timestamp}>{formatDate(item.timestamp)}</Text>
+        </View>
+        <View style={styles.emotionActions}>
+          <View style={[styles.emotionTag, { backgroundColor }]}>
+            <Text style={styles.emotionText}>{item.emotion}</Text>
+          </View>
+          <Pressable 
+            onPress={() => handleDeleteEmotion(item.id)}
+            style={styles.deleteButton}
+          >
+            <Text style={styles.deleteText}>×</Text>
+          </Pressable>
+        </View>
       </View>
-      <View style={styles.emotionTag}>
-        <Text style={styles.emotionText}>{item.emotion}</Text>
-      </View>
-    </View>
-  );
+    );
+  };
 
   if (isLoading) {
     return (
@@ -117,7 +157,7 @@ const styles = StyleSheet.create({
     color: 'black',
     backgroundColor: 'white',
     ...(Platform.OS === 'ios' && {
-      marginTop: 40,
+      marginTop: 55,
     })
   },
   emotionList: {
@@ -168,4 +208,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 20,
   },
+  emotionActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  deleteButton: {
+    backgroundColor: '#c70000',
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    lineHeight: 20,
+  }
 });
+
+//todo - i made the currentEmotion go the colouur associated with the emotion, working, trying to figure out what else, maybe sort by category of emotion? eg. happy, sad, mad, etc.

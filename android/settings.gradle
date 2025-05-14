@@ -1,4 +1,9 @@
 pluginManagement {
+  repositories {
+    google()
+    gradlePluginPortal()
+    mavenCentral()
+  }
   def reactNativeGradlePlugin = new File(
     providers.exec {
       workingDir(rootDir)

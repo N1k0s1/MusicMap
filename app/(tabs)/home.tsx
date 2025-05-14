@@ -495,8 +495,6 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    marginLeft: 10,
     alignSelf: 'flex-end',
   },
 });
@@ -507,3 +505,4 @@ const styles = StyleSheet.create({
 // - add in the search function - kind of works but could be better
 // - add in the playlist function - nothing there
 // - add in the social function, nothing there
+// - add in the settings menu, barebones
