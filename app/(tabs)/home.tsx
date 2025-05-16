@@ -79,6 +79,7 @@ export default function Home() {
   const [isEmotionSelectorVisible, setIsEmotionSelectorVisible] = useState(false);
   const [trackEmotions, setTrackEmotions] = useState<{[key: string]: string}>({});
   const [showSettings, setShowSettings] = useState(false);
+  const [randomLyric, setRandomLyric] = useState<string>('');
 
   useEffect(() => {
     checkSessionAndLoadData();
@@ -96,12 +97,50 @@ export default function Home() {
     }, [])
   );
 
+  useEffect(() => {
+    const lyrics = [
+      "So I'll love you till my lungs give out, I ain't lyin'.",
+      "Blame it on the black star. Blame it on the falling sky.",
+      "This machine will not communicate. These thoughts.",
+      "Comes like a comet, suckered you but not your friends.",
+      "Don't leave me high, Don't leave me dry.",
+      "I'll see you on the dark side of the moon.",
+      "Before you're lost between the notes, the beat goes round and round.",
+      "Ticking away, the moments that make up a dull day.",
+      "This is ground control to Major Tom.",
+      "Is this the real life? Is this just fantasy?",
+    ];
+    setRandomLyric(lyrics[Math.floor(Math.random() * lyrics.length)]);
+  }, []);
+
+{/*                 {[
+          "So I'll love you till my lungs give out, I ain't lyin'.",
+          "Blame it on the black star. Blame it on the falling sky.",
+          "This machine will not communicate. These thoughts.",
+          "Comes like a comet, suckered you but not your friends.",
+          "Don't leave me high, Don't leave me dry.",
+          "I'll see you on the dark side of the moon.",
+          "Before you're lost between the notes, the beat goes round and round.",
+          "Ticking away, the moments that make up a dull day.",
+          "And you're a good kid that need good leadership.",
+          "Do I look like him? Like him, Like him, Like him.",
+          "I wake up to the sounds of the silence that allows.",
+          "You ought to know that I think we're one and the same.",
+          "This is ground control to Major Tom.",
+          "Is this the real life? Is this just fantasy?",
+          "Can you feel the light inside? Can you feel that fire?",
+          "Your first name is Free, last name is Dom.",
+          "Mais ma meilleure ennemie c'est toi.",
+          "My heart is yours, it's you that I hold on to.",
+          "Forget about your house of cards, and I'll do mine"
+        ][Math.floor(Math.random() * 17)]} */}
+
   const checkSessionAndLoadData = async () => {
     try {
       const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
       if (!sessionKey) {
         router.replace('/login');
-        return;
+        return; 
       }
 
       // First fetch user info and emotions
@@ -304,39 +343,7 @@ export default function Home() {
         )}
       </View>
       <Text style={styles.subHeader}>
-        {[
-          "So I'll love you till my lungs give out, I ain't lyin'.",
-          "Blame it on the black star. Blame it on the falling sky.",
-          "This machine will not communicate. These thoughts.",
-          "Comes like a comet, suckered you but not your friends.",
-          "Don't leave me high, Don't leave me dry.",
-          "I'll see you on the dark side of the moon.",
-          "Before you're lost between the notes, the beat goes round and round.",
-          "Ticking away, the moments that make up a dull day.",
-          "This is ground control to Major Tom.",
-          "Is this the real life? Is this just fantasy?",
-        ][Math.floor(Math.random() * 10)]}
-{/*                 {[
-          "So I'll love you till my lungs give out, I ain't lyin'.",
-          "Blame it on the black star. Blame it on the falling sky.",
-          "This machine will not communicate. These thoughts.",
-          "Comes like a comet, suckered you but not your friends.",
-          "Don't leave me high, Don't leave me dry.",
-          "I'll see you on the dark side of the moon.",
-          "Before you're lost between the notes, the beat goes round and round.",
-          "Ticking away, the moments that make up a dull day.",
-          "And you're a good kid that need good leadership.",
-          "Do I look like him? Like him, Like him, Like him.",
-          "I wake up to the sounds of the silence that allows.",
-          "You ought to know that I think we're one and the same.",
-          "This is ground control to Major Tom.",
-          "Is this the real life? Is this just fantasy?",
-          "Can you feel the light inside? Can you feel that fire?",
-          "Your first name is Free, last name is Dom.",
-          "Mais ma meilleure ennemie c'est toi.",
-          "My heart is yours, it's you that I hold on to.",
-          "Forget about your house of cards, and I'll do mine"
-        ][Math.floor(Math.random() * 17)]} */}
+        {randomLyric}
       </Text>
       
       <SettingsMenu 

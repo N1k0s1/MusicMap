@@ -118,7 +118,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Search!</Text>
+      <Text style={styles.header}>Search</Text>
       <TextInput
         placeholder="Search for your next emotion :=D"
         value={searchQuery}

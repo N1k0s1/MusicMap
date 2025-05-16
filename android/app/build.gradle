@@ -1,3 +1,8 @@
+plugins {
+    id("com.android.application")
+    id("com.google.gms.google-services")
+}
+
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
@@ -82,14 +87,13 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
-
+    ndkVersion "25.1.8937393"
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.cosmin_mare.MusicMap'
+    namespace 'com.apringle.MusicMap'
     defaultConfig {
-        applicationId 'com.cosmin_mare.MusicMap'
+        applicationId 'com.apringle.MusicMap'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -145,11 +149,6 @@ android {
             android.packagingOptions[prop] += it
         }
     }
-}
-
-plugins {
-    id("com.android.application")
-    id("com.google.gms.google-services")
 }
 
 dependencies {
