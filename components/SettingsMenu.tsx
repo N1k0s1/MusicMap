@@ -2,7 +2,7 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, Modal, ScrollView} from 'react-native';
 import {BlurView} from 'expo-blur';
-import {signOut, deleteEmotionHistory} from './utilities';
+import {signOut, deleteEmotionsHistory} from './utilities';
 import {useNavigation} from '@react-navigation/native';
 import {lastfmGetUserInfo} from '@/utils/firebase';
 import ProfilePicture from '@/components/ProfilePicture';
@@ -120,7 +120,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
             <View style={styles.divider} />
             <Pressable style={styles.menuItem} onPress={() => {
               onClose();
-              deleteEmotionHistory();
+              deleteEmotionsHistory();
             }}>
               <Text style={styles.menuText}>Delete Emotion History</Text>
             </Pressable>

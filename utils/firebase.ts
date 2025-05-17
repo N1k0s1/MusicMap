@@ -21,3 +21,4 @@ export const storeEmotion = httpsCallable(functions, "storeEmotion");
 export const getEmotions = httpsCallable(functions, "getEmotions"); 
 export const lastfmSearchforTracks = httpsCallable(functions, "lastfmSearchforTracks")
 export const deleteEmotion = httpsCallable(functions, "deleteEmotion");
+export const deleteEmotionHistory = httpsCallable(functions, "deleteEmotionHistory");
