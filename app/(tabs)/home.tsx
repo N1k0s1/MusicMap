@@ -329,7 +329,7 @@ export default function Home() {
       </ImageBackground>
     );
   };
-// todo make better ones, these are all from songs in my playlist, possibly make it pull from user tracks using ai for the best lyrics for startup? would be cool
+// todo make better ones, these are all from songs in my playlist, possibly make it pull from user tracks using ai for the best lyrics for startup? would be cool.
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
     flexShrink: 0,
   },
   songList: {
-    paddingBottom: 19,
+    paddingBottom: 20,
   },
   songContainer: {
     marginBottom: 15,

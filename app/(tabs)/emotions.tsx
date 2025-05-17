@@ -57,7 +57,7 @@ export default function EmotionsScreen() {
 
   const handleDeleteEmotion = async (emotionId: string) => {
     Alert.alert(
-      'Delete Emotion','Are you sure you want to delete this emotion?',
+      'Delete Emotion','Are you sure you\'d like to delete this emotion?',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'gray',
     ...(Platform.OS === 'ios' && {
       height: 2,
       paddingBottom: 10,
