@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'gray',
+    backgroundColor: 'white',
     ...(Platform.OS === 'ios' && {
       height: 2,
       paddingBottom: 10,

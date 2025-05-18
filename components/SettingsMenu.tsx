@@ -2,11 +2,13 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, Modal, ScrollView} from 'react-native';
 import {BlurView} from 'expo-blur';
-import {signOut, deleteEmotionsHistory} from './utilities';
+import {signOut, deleteEmotionsHistory, deleteAccountMenu} from './settingsInteractions';
 import {useNavigation} from '@react-navigation/native';
 import {lastfmGetUserInfo} from '@/utils/firebase';
 import ProfilePicture from '@/components/ProfilePicture';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AccountSettingsScreen} from '../app/(tabs)/accountSettings';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 type SettingsMenuProps = {
   visible: boolean;
@@ -29,7 +31,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
     realname: '',
     profilePicture: '' as string | undefined,
   });
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const fetchUserInfo = async (sessionKey: string) => {
     try {
@@ -92,7 +94,12 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
           </View>
           <ScrollView style={styles.menuContainer}>
           <View style={styles.divider} />
-            <Pressable style={styles.menuItem}>
+            <Pressable 
+              style={styles.menuItem} 
+              onPress={() => {
+                navigation.navigate('accountSettings');
+              }}
+            >
               <Text style={styles.menuText}>Account Settings</Text>
             </Pressable>
             <View style={styles.divider} />
@@ -132,7 +139,10 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
               <Text style={styles.menuText}>Log Out</Text>
             </Pressable>
             <View style={styles.divider} />
-            <Pressable style={styles.menuItem}>
+            <Pressable style={styles.menuItem} onPress={() => {
+              onClose();
+              deleteAccountMenu();
+            }}>
               <Text style={styles.menuText}>Delete Account</Text>
             </Pressable>
             <View style={styles.divider} />
@@ -149,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   contentContainer: {
-    backgroundColor: 'rgb(162, 162, 162)',
+    backgroundColor: 'rgb(255, 255, 255)',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     height: '92%',
@@ -192,7 +202,7 @@ const styles = StyleSheet.create({
     marginVertical: 9,
   },
   profileCard: {
-    backgroundColor: 'rgba(207, 207, 207, 0.7)',
+    backgroundColor: 'rgba(218, 218, 218, 0.7)',
     borderRadius: 8,
     width: '95%',
     height: 70,
