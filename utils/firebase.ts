@@ -23,3 +23,4 @@ export const lastfmSearchforTracks = httpsCallable(functions, "lastfmSearchforTr
 export const deleteEmotion = httpsCallable(functions, "deleteEmotion");
 export const deleteEmotionHistory = httpsCallable(functions, "deleteEmotionHistory");
 export const deleteAccount = httpsCallable(functions, "deleteAccount");
+export const firstLogin = httpsCallable(functions, "firstLogin");

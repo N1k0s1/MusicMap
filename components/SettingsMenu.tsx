@@ -7,8 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {lastfmGetUserInfo} from '@/utils/firebase';
 import ProfilePicture from '@/components/ProfilePicture';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AccountSettingsScreen} from '../app/(tabs)/accountSettings';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { AccountSettingsScreen } from '@/components/accountSettings';
 
 type SettingsMenuProps = {
   visible: boolean;
@@ -31,7 +30,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
     realname: '',
     profilePicture: '' as string | undefined,
   });
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation();
+  const [accountSettingsVisible, setAccountSettingsVisible] = useState(false);
 
   const fetchUserInfo = async (sessionKey: string) => {
     try {
@@ -94,12 +94,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
           </View>
           <ScrollView style={styles.menuContainer}>
           <View style={styles.divider} />
-            <Pressable 
-              style={styles.menuItem} 
-              onPress={() => {
-                navigation.navigate('accountSettings');
-              }}
-            >
+            <Pressable style={styles.menuItem} onPress={() => setAccountSettingsVisible(true)}>
               <Text style={styles.menuText}>Account Settings</Text>
             </Pressable>
             <View style={styles.divider} />
@@ -147,6 +142,10 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
             </Pressable>
             <View style={styles.divider} />
           </ScrollView>
+          <AccountSettingsScreen 
+            visible={accountSettingsVisible} 
+            onClose={() => setAccountSettingsVisible(false)} 
+          />
         </View>
       </BlurView>
     </Modal>

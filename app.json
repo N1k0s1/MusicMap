@@ -18,6 +18,9 @@
       "bundleIdentifier": "com.apringle.MusicMap",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "appVersion"
       }
     },
     "android": {
@@ -26,7 +29,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.apringle.MusicMap"
+      "package": "com.apringle.MusicMap",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -45,6 +49,9 @@
         "projectId": "8b78ef5b-fa8e-44fa-85dc-2ff70d7aad95"
       }
     },
-    "owner": "apringle"
+    "owner": "apringle",
+    "updates": {
+      "url": "https://u.expo.dev/8b78ef5b-fa8e-44fa-85dc-2ff70d7aad95"
+    }
   }
 }

@@ -5,7 +5,7 @@ import {
 import { BlurView } from 'expo-blur';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import { lastfmGetRecentTracks, lastfmGetUserInfo, storeEmotion, getEmotions } from '@/utils/firebase';
+import { lastfmGetRecentTracks, lastfmGetUserInfo, storeEmotion, getEmotions, firstLogin } from '@/utils/firebase';
 import EmotionSelector from '@/components/EmotionSelector';
 import { useFocusEffect } from '@react-navigation/native';
 import ProfilePicture from '@/components/ProfilePicture';

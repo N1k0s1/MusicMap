@@ -1,4 +1,4 @@
-package com.cosmin_mare.MusicMap
+package com.apringle.musicmap
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
@@ -10,6 +10,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnable
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 import expo.modules.ReactActivityDelegateWrapper
+import com.apringle.musicmap.BuildConfig
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
