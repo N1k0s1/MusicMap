@@ -1,0 +1,60 @@
+{
+  "name": "Niko",
+  "subtitle": "A source for MusicMap, and future apps.",
+  "description": "Welcome to my source! Here you'll find MusicMap, currently the only app I've developed for iOS. If you have any problems with it at all, then don't hesitate to email me at niko@apringle.tech!",
+  "iconURL": "https://avatars.githubusercontent.com/u/128133376?v=4",
+  "website": "https://apringle.tech",
+  "patreonURL": "",
+  "tintColor": "#172dc4",
+  "featuredApps": [
+    "com.apringle.MusicMap"
+  ],
+  "apps": [
+    {
+      "name": "MusicMap",
+      "bundleIdentifier": "com.apringle.MusicMap",
+      "marketplaceID": "",
+      "developerName": "Niko Purdie",
+      "subtitle": "Log the mood, Share the music.",
+      "localizedDescription": "MusicMap is a purpose built platform that connects your emotions to the music that you love, and lets you share that experience socially. Whether you're crafting mood-based playlists, blending music with friends, or sharing how a track makes you feel, MusicMap turns your listening habits into something more meaningful.\n\nWhat Currently Works:\nSearch and Home functions are fully functional\nEmotions tab works\nThe app connects with Last.fm to pull live listening data\nSettings menu is active, with working buttons for deleting emotions, logging out, and deleting your account\n\nComing Soon:\nReal-time emotion tagging display for the search function\nSocial and Playlist tabs with full functionality\nAdd in optional personal descriptions\nShare emotions and descriptions in your story, add friends via codes, and view their activity\nAdd music-related Notes, like Instagram Notes, for quick emotional insights\nCreate emotion-based playlists or blends, mixing one or more emotions or two users' tastes to generate shared playlists",
+      "iconURL": "https://i.imgur.com/Zq4fByp.png",
+      "tintColor": "#5449d0",
+      "category": "lifestyle",
+      "screenshots": [
+        "https://i.imgur.com/S38bD3X.png",
+        "https://i.imgur.com/LW3TA6Z.png",
+        "https://i.imgur.com/AiPF9xD.png",
+        "https://i.imgur.com/1726lkI.png"
+      ],
+      "versions": [
+        {
+          "downloadURL": "https://github.com/N1k0s1/MusicMap/releases/download/v0.1/MusicMap-v0.1.ipa",
+          "size": 17100000,
+          "version": "0.1",
+          "buildVersion": "1",
+          "date": "2025-05-21T21:21:00+12:00",
+          "localizedDescription": null,
+          "minOSVersion": null
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      },
+      "patreon": {}
+    }
+  ],
+  "news": [
+    {
+      "title": "First Release of MusicMap!",
+      "identifier": "news_r4o0yvl93u",
+      "caption": "Introducing MusicMap, the first purpose built app to link emotions to music.",
+      "date": "2025-05-22T09:34",
+      "tintColor": "#0c70ee",
+      "imageURL": "",
+      "notify": true,
+      "url": "https://github.com/N1k0s1/MusicMap/releases/tag/v0.1",
+      "appID": "com.apringle.MusicMap"
+    }
+  ]
+}
