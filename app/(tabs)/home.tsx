@@ -168,6 +168,9 @@ export default function Home() {
           realname: data.user.realname,
           profilePicture: data.user.image?.[3]?.["#text"]
         });
+        console.log('api response', data);
+
+        console.log('profile pic ', data.user.image?.[3]?.["#text"]);
       }
     } catch (err) {
       console.error('Error fetching user info', err);
