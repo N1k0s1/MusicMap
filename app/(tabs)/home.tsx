@@ -28,6 +28,8 @@ interface Emotion {
   name: string;
   emoji: string;
   color: string;
+  group: string;
+  broadgroup: string;
 }
 
 interface LastFMUserResponse {
@@ -169,7 +171,6 @@ export default function Home() {
           profilePicture: data.user.image?.[3]?.["#text"]
         });
         console.log('api response', data);
-
         console.log('profile pic ', data.user.image?.[3]?.["#text"]);
       }
     } catch (err) {
@@ -177,7 +178,7 @@ export default function Home() {
       router.replace('/login');
     }
   };
-
+  
   const fetchRecentTracks = async (sessionKey: string) => {
     if (isLoading || !hasMore) return;
     setIsLoading(true);
@@ -255,8 +256,10 @@ export default function Home() {
           trackId: selectedTrack.id,
           trackTitle: selectedTrack.title,
           artist: selectedTrack.artist,
+          group: emotion.group,
+          broadgroup: emotion.broadgroup,
           emotion: emotion.name
-        });
+          });
 
         // update locally immediately with the new emotion
         setTrackEmotions(prev => {

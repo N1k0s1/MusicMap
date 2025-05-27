@@ -7,6 +7,8 @@ interface Emotion {
   name: string;
   emoji: string;
   color: string;
+  group: string;
+  broadgroup: string;
 }
 
 interface EmotionSelectorProps {
@@ -42,7 +44,10 @@ export default function EmotionSelector({ visible, onClose, onSelectEmotion }: E
                 <Pressable
                   key={emotion.name}
                   style={[styles.emotionButton, { backgroundColor: emotion.color }]}
-                  onPress={() => onSelectEmotion(emotion)}
+                  onPress={() => onSelectEmotion({
+                    ...emotion,
+                    broadgroup: emotion.broadGroup
+                  })}
                 >
                   {typeof emotion.emoji === 'string' ? (
                     <Text style={styles.emoji}>{emotion.emoji}</Text>
