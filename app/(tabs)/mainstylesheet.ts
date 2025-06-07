@@ -210,12 +210,6 @@ export const styles = StyleSheet.create({
 
 
 
-  emotionTag: {
-    backgroundColor: '#000000',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
   emotionText: {
     color: 'white',
     fontSize: 14,
