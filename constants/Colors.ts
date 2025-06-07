@@ -1,7 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
-export default {
+// Static color definitions (light/dark themes)
+export const ColorThemes = {
   light: {
     text: '#000',
     background: '#fff',
@@ -17,3 +19,10 @@ export default {
     tabIconSelected: tintColorDark,
   },
 };
+
+export const getCurrentTheme = async () => {
+  const savedTheme = await AsyncStorage.getItem('theme');
+  return savedTheme === 'dark' ? 'dark' : 'light';
+};
+
+export default ColorThemes;

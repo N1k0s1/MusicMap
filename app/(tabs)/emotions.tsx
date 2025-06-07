@@ -7,7 +7,7 @@ import {useRouter} from 'expo-router';
 import {useFocusEffect} from '@react-navigation/native';
 import {getEmotions, deleteEmotion} from '@/utils/firebase';
 import {emotionData} from '@/components/emotionData';
-import {stylesemotions} from '../../constants/mainstylesheet';
+import {styles} from '../../constants/mainstylesheet';
 
 interface EmotionEntry {
   id: string;
@@ -34,7 +34,7 @@ export default function EmotionsScreen() {
       }
 
       const result = await getEmotions({ sessionKey });
-      const data = result.data as {emotions: EmotionEntry[]};
+      const data = result.data as {emotions: EmotionEntry[]};  
       setEmotions(data.emotions);
     } catch (error) {
       console.error('error loading emotions womp womp :skulk:', error);
@@ -90,7 +90,7 @@ export default function EmotionsScreen() {
     const backgroundColor = emotion ? emotion.color : '#000000';
 
     return (
-      <View style={styles.emotionContainer}>
+      <View style={styles.emotionemotionContainer}>
         <View style={styles.trackInfo}>
           <Text style={styles.trackTitle}>{item.trackTitle}</Text>
           <Text style={styles.artist}>{item.artist}</Text>

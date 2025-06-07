@@ -108,7 +108,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
                 // need to make light/dark mode & make a toggle for it.
               }}
             >
-              <Text style={styles.menuText}>Themes</Text>
+              <Text style={styles.menuText}>Toggle Theme</Text>
             </Pressable>
             <View style={styles.divider} />
             <Pressable 

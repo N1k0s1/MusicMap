@@ -4,6 +4,7 @@ import {View} from '@/components/Themed';
 import {lastfmSearchforTracks, storeEmotion} from '@/utils/firebase';
 import EmotionSelector from '@/components/EmotionSelector';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {styles} from '../../constants/mainstylesheet';
 
 interface Track {
   id: string;
@@ -95,11 +96,11 @@ export default function TabTwoScreen() {
 
   const renderTrack = ({ item }: { item: Track }) => (
     <View style={styles.trackItem}>
-      {item.albumArt ? <Image source={{ uri: item.albumArt }} style={styles.albumArt} /> : null}
+      {item.albumArt ? <Image source={{ uri: item.albumArt }} style={styles.SearchalbumArt} /> : null}
       <View style={styles.trackTextContainer}>
         <Text style={styles.trackTitle}>{item.title}</Text>
         <Text style={styles.trackArtist}>{item.artist}</Text>
-        <View style={styles.emotionContainer}>
+        <View style={styles.SearchemotionContainer}>
           <Pressable 
             style={[styles.currentEmotion, !item.emotion && styles.addEmotionButton]}
             onPress={() => {
@@ -144,91 +145,4 @@ export default function TabTwoScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#FFFFFF',
-  },
-  header: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 6,
-    color: 'black',
-    ...(Platform.OS === 'ios' && {
-      marginTop: 40,
-    })
-  },
-  subHeader: {
-    fontSize: 16,
-    color: 'black',
-    marginBottom: 25,
-    flexWrap: 'wrap',
-    flexShrink: 0,
-  },
-  searchInput: {
-    height: 40,
-    borderColor: '#000000',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 20,
-    marginTop: 8,
-    paddingHorizontal: 10,
-    backgroundColor: '#FFFFFF',
-  },
-  resultsContainer: {
-    paddingBottom: 0,
-    borderBottomWidth: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  trackItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#FFFFFF',
-    backgroundColor: '#FFFFFF',
-  },
-  albumArt: {
-    width: 50,
-    height: 50,
-    marginRight: 15,
-    borderRadius: 5,
-  },
-  trackTextContainer: {
-    backgroundColor: '#FFFFFF',
-    flex: 1,
-  },
-  trackTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000000',
-  },
-  trackArtist: {
-    fontSize: 14,
-    color: '#000000',
-  },
-  emotionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    backgroundColor: '#FFFFFF',
-  },
-  currentEmotion: {
-    backgroundColor: '#d51007',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-    alignSelf: 'flex-end',
-  },
-  addEmotionButton: {
-    backgroundColor: '#000000',
-  },
-  currentEmotionText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-  }
-})
 // todo - add in profile pictures, need to fix the search function some more, especially the main user ui when opening it, maybe show popular songs?
