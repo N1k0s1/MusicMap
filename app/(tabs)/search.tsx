@@ -175,11 +175,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 8,
     paddingHorizontal: 10,
+    backgroundColor: '#FFFFFF',
   },
   resultsContainer: {
     paddingBottom: 0,
     borderBottomWidth: 1,
-    borderBottomColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
   },
   trackItem: {
     flexDirection: 'row',
@@ -187,6 +188,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderBottomWidth: 1,
     borderBottomColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
   },
   albumArt: {
     width: 50,
@@ -195,6 +197,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   trackTextContainer: {
+    backgroundColor: '#FFFFFF',
     flex: 1,
   },
   trackTitle: {
@@ -210,6 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    backgroundColor: '#FFFFFF',
   },
   currentEmotion: {
     backgroundColor: '#d51007',

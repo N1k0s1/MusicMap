@@ -7,6 +7,7 @@ import {useRouter} from 'expo-router';
 import {useFocusEffect} from '@react-navigation/native';
 import {getEmotions, deleteEmotion} from '@/utils/firebase';
 import {emotionData} from '@/components/emotionData';
+import {stylesemotions} from '../../constants/mainstylesheet';
 
 interface EmotionEntry {
   id: string;
@@ -96,7 +97,7 @@ export default function EmotionsScreen() {
           <Text style={styles.timestamp}>{formatDate(item.timestamp)}</Text>
         </View>
         <View style={styles.emotionActions}>
-          <View style={[styles.emotionTag, { backgroundColor }]}>
+          <View style={[styles.emotionTag, {backgroundColor}]}>
             <Text style={styles.emotionText}>{item.emotion}</Text>
           </View>
           <Pressable 
@@ -136,99 +137,6 @@ export default function EmotionsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'white',
-    ...(Platform.OS === 'ios' && {
-      height: 2,
-      paddingBottom: 10,
-    })
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  header: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: 'black',
-    backgroundColor: 'white',
-    ...(Platform.OS === 'ios' && {
-      marginTop: 55,
-    })
-  },
-  emotionList: {
-    paddingBottom: 20,
-  },
-  emotionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  trackInfo: {
-    flex: 1,
-    marginRight: 10,
-  },
-  trackTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 4,
-  },
-  artist: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-  },
-  timestamp: {
-    fontSize: 12,
-    color: '#999',
-  },
-  emotionTag: {
-    backgroundColor: '#000000',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-  },
-  emotionText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: '#666',
-    fontSize: 16,
-    marginTop: 20,
-  },
-  emotionActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  deleteButton: {
-    backgroundColor: '#c70000',
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  deleteText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    lineHeight: 20,
-  }
-});
+
 
 //todo - i made the currentEmotion go the colouur associated with the emotion, working, trying to figure out what else, maybe sort by category of emotion? eg. happy, sad, mad, etc.

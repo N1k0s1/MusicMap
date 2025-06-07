@@ -10,6 +10,7 @@ import EmotionSelector from '@/components/EmotionSelector';
 import { useFocusEffect } from '@react-navigation/native';
 import ProfilePicture from '@/components/ProfilePicture';
 import SettingsMenu from '@/components/SettingsMenu';
+import  {styles} from '../../constants/mainstylesheet';
 
 interface Track {
   id: string;
@@ -111,6 +112,8 @@ export default function Home() {
       "Ticking away, the moments that make up a dull day.",
       "This is ground control to Major Tom.",
       "Is this the real life? Is this just fantasy?",
+      "Can you feel the light inside? Can you feel that fire?",
+      "Your first name is Free, last name is Dom.",
     ];
     setRandomLyric(lyrics[Math.floor(Math.random() * lyrics.length)]);
   }, []);
@@ -174,7 +177,7 @@ export default function Home() {
         console.log('profile pic ', data.user.image?.[3]?.["#text"]);
       }
     } catch (err) {
-      console.error('Error fetching user info', err);
+      console.error('Error fetching user inf o', err);
       router.replace('/login');
     }
   };
@@ -372,7 +375,7 @@ export default function Home() {
             fetchRecentTracks(sessionKey);
           }
         }}
-        onEndReachedThreshold={0.5} 
+        onEndReachedThreshold={0.5}
         ListFooterComponent={
           isLoading ? <ActivityIndicator size="large" color="#d51007" /> : null
         }
@@ -388,130 +391,6 @@ export default function Home() {
 }
 
 // could move these to a separate file
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: 'white',
-  // could make dark/light mode later
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 6,
-  },
-  header: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 6,
-        ...(Platform.OS === 'ios' && {
-      marginTop: 40,
-    })
-  },
-  subHeader: {
-    fontSize: 16,
-    color: 'black',
-    marginBottom: 25,
-    flexWrap: 'wrap',
-    flexShrink: 0,
-  },
-  songList: {
-    paddingBottom: 20,
-  },
-  songContainer: {
-    marginBottom: 15,
-    borderRadius: 10,
-    overflow: 'hidden',
-    height: 120,
-  },
-  songBackgroundImage: {
-    borderRadius: 0,
-  },
-  blurView: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
-  songContent: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 15,
-  },
-  albumArtContainer: {
-    width: 121,
-    height: 121,
-    marginLeft: 0,
-    borderRadius: 13,
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  albumArt: {
-    width: '100%',
-    height: '100%',
-  },
-  albumArtImage: {
-    borderRadius: 13,
-  },
-  albumArtBlur: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  songDetails: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingRight: 15,
-  },
-  songTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
-    alignSelf: 'flex-start',
-    color: 'white',
-    backgroundColor: 'rgba(52, 52, 52, 0.04)',
-    fontFamily: 'Encode Sans Semi Expanded',  // need to fix font later
-  },
-  songArtist: {
-    fontSize: 14,
-    color: 'lightgray',
-    alignSelf: 'flex-start',
-    marginBottom: 10,
-    fontFamily: 'Encode Sans Semi Expanded',
-  },
-  emotionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  currentEmotion: {
-    backgroundColor: '#d51007',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 15,
-    alignSelf: 'flex-end',
-  },
-  addEmotionButton: {
-    backgroundColor: '#000000',
-  },
-  currentEmotionText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  profilePicture: {
-    width: 40,
-    height: 40,
-    alignSelf: 'flex-end',
-  },
-});
-
 // * to-dos
 // - Better loading states
 // - Pull to refresh?
