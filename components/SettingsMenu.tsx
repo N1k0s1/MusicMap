@@ -32,6 +32,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
   });
   const navigation = useNavigation();
   const [accountSettingsVisible, setAccountSettingsVisible] = useState(false);
+  const [themeUpdated, setThemeUpdated] = useState(false);
 
   const fetchUserInfo = async (sessionKey: string) => {
     try {
@@ -104,8 +105,16 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
             <View style={styles.divider} />
             <Pressable 
               style={styles.menuItem} 
-              onPress={() => {
-                // need to make light/dark mode & make a toggle for it.
+              onPress={async () => {
+                console.log('setting theme');
+                const savedTheme = await AsyncStorage.getItem('theme');
+                console.log(savedTheme);
+                if (savedTheme === 'dark') {
+                  await AsyncStorage.setItem('theme', '');
+                } else {
+                  await AsyncStorage.setItem('theme', 'dark');
+                }
+                setThemeUpdated(!themeUpdated);
               }}
             >
               <Text style={styles.menuText}>Toggle Theme</Text>

@@ -1,14 +1,15 @@
 import React from "react";
-import { StyleSheet, Platform } from "react-native";
+import {StyleSheet, Platform} from "react-native";
 import { getCurrentTheme, ColorThemes } from "./Colors";
 
-// Define styles dynamically based on the current theme
-export const getStyles = async () => {
-//  const theme = await getCurrentTheme();
-//  const colors = ColorThemes[theme];
-    const colors = ColorThemes['dark']
+let styles;
+let themeListeners: Array<() => void> = [];
 
-  const styles = StyleSheet.create({
+export const reloadTheme = async () => {
+  const theme = await getCurrentTheme();
+  const colors = ColorThemes[theme];
+  console.log(theme)
+  styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 20,
@@ -211,13 +212,13 @@ export const getStyles = async () => {
     // SEARCH.TSX SPECIFIC
     searchInput: {
       height: 40,
-      borderColor: '#000000',
+      borderColor: colors.text,
       borderWidth: 1,
       borderRadius: 5,
       marginBottom: 20,
       marginTop: 8,
       paddingHorizontal: 10,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.background,
     },
     resultsContainer: {
       paddingBottom: 0,
@@ -230,7 +231,7 @@ export const getStyles = async () => {
       padding: 15,
       borderBottomWidth: 1,
       borderBottomColor: '#FFFFFF',
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.background,
     },
     SearchalbumArt: {
       width: 50,
@@ -239,12 +240,12 @@ export const getStyles = async () => {
       borderRadius: 5,
     },
     trackTextContainer: {
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.background,
       flex: 1,
     },
     trackArtist: {
       fontSize: 14,
-      color: '#000000',
+      color: colors.text,
     },
     SearchemotionContainer: {
       flexDirection: 'row',
@@ -252,8 +253,27 @@ export const getStyles = async () => {
       justifyContent: 'flex-end',
       backgroundColor: 'white',
     },
+    searchtrackTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: colors.text,
+      marginBottom: 4,
+    },
   });
+  themeListeners.forEach(listener => listener());
 };
+
+export const subscribeToThemeChanges = (listener: () => void) => {
+  themeListeners.push(listener);
+  return () => {
+    themeListeners = themeListeners.filter(l => l !== listener);
+  };
+};
+
+// Initial load
+reloadTheme();
+
+export { styles };
 
 // * to-dos
 // - Better loading states

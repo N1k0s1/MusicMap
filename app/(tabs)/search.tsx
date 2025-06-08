@@ -98,7 +98,7 @@ export default function TabTwoScreen() {
     <View style={styles.trackItem}>
       {item.albumArt ? <Image source={{ uri: item.albumArt }} style={styles.SearchalbumArt} /> : null}
       <View style={styles.trackTextContainer}>
-        <Text style={styles.trackTitle}>{item.title}</Text>
+        <Text style={styles.searchtrackTitle}>{item.title}</Text>
         <Text style={styles.trackArtist}>{item.artist}</Text>
         <View style={styles.SearchemotionContainer}>
           <Pressable 
