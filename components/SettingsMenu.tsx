@@ -8,6 +8,7 @@ import {lastfmGetUserInfo} from '@/utils/firebase';
 import ProfilePicture from '@/components/ProfilePicture';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AccountSettingsScreen } from '@/components/accountSettings';
+import {styles} from '../constants/mainstylesheet'
 
 type SettingsMenuProps = {
   visible: boolean;
@@ -82,7 +83,7 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
           </View>
           <View style={styles.profileCard}>
             {userInfo?.profilePicture && (
-              <View style={styles.profilePicture}>
+              <View style={styles.settingsprofilePicture}>
                 <ProfilePicture 
                   profilePicture={userInfo.profilePicture}
                   size={60}
@@ -160,83 +161,6 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  contentContainer: {
-    backgroundColor: 'rgb(255, 255, 255)',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    height: '92%',
-    padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#000000',
-    paddingHorizontal: 12,
-  },
-  closeButton: {
-    position: 'absolute',
-    right: 1,
-    top: -5,
-  },
-  closeButtonText: {
-    fontSize: 26,
-    color: '#666',
-  },
-  menuContainer: {
-    flex: 1,
-  },
-  menuItem: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  menuText: {
-    fontSize: 16,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: 'black',
-    marginVertical: 9,
-  },
-  profileCard: {
-    backgroundColor: 'rgba(218, 218, 218, 0.7)',
-    borderRadius: 8,
-    width: '95%',
-    height: 70,
-    marginBottom: 10,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    justifyContent: 'space-between',
-  },
-  profilePicture: {
-    width: 60,
-    height: 60,
-    alignSelf: 'center',
-    paddingBottom: 140,
-    marginRight: 0,
-  },
-  profileName: {
-    fontSize: 25,
-    fontWeight: '400',
-    color: '#000000',
-    flex: 1,
-    textAlign: 'right',
-    marginLeft: 12,
-  },
-});
 
 export default SettingsMenu; 
 

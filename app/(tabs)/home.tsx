@@ -342,7 +342,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Hi {userInfo?.realname || userInfo?.name || 'there'}!</Text>
+        <Text style={styles.header}>Hey {userInfo?.realname || userInfo?.name || 'there'}!</Text>
         {userInfo?.profilePicture && (
           <ProfilePicture 
             profilePicture={userInfo.profilePicture}

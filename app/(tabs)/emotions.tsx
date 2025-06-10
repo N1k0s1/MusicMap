@@ -129,7 +129,7 @@ export default function EmotionsScreen() {
         contentContainerStyle={styles.emotionList}
         ListEmptyComponent={
           <Text style={styles.emptyText}>
-            No emotions recorded yet. Start by adding emotions to your tracks!
+            No emotions recorded yet. Start by adding some emotions to your tracks!
           </Text>
         }
       />

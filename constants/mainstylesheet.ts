@@ -149,7 +149,7 @@ export const reloadTheme = async () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: '#f5f5f5',
+      backgroundColor: colors.background,
       padding: 15,
       borderRadius: 10,
       marginBottom: 10,
@@ -161,12 +161,12 @@ export const reloadTheme = async () => {
     trackTitle: {
       fontSize: 16,
       fontWeight: 'bold',
-      color: 'black',
+      color: colors.text,
       marginBottom: 4,
     },
     artist: {
       fontSize: 14,
-      color: '#666',
+      color: colors.text,
       marginBottom: 4,
     },
     timestamp: {
@@ -205,7 +205,7 @@ export const reloadTheme = async () => {
       lineHeight: 20,
     },
     emotionText: {
-      color: 'white',
+      color: 'black',
       fontSize: 14,
       fontWeight: '500',
     },
@@ -213,17 +213,17 @@ export const reloadTheme = async () => {
     searchInput: {
       height: 40,
       borderColor: colors.text,
-      borderWidth: 1,
+      color: colors.text,
+      borderWidth: 0.5,
       borderRadius: 5,
       marginBottom: 20,
       marginTop: 8,
       paddingHorizontal: 10,
-      backgroundColor: colors.background,
     },
     resultsContainer: {
       paddingBottom: 0,
       borderBottomWidth: 1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.background,
     },
     trackItem: {
       flexDirection: 'row',
@@ -251,7 +251,8 @@ export const reloadTheme = async () => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-end',
-      backgroundColor: 'white',
+      backgroundColor: colors.background,
+      color: colors.text,
     },
     searchtrackTitle: {
       fontSize: 16,
@@ -259,6 +260,162 @@ export const reloadTheme = async () => {
       color: colors.text,
       marginBottom: 4,
     },
+    searchaddEmotionButton: {
+      backgroundColor: colors.text,
+    },
+    searchemotionText: {
+      color: colors.background,
+      fontSize: 14,
+      fontWeight: '500',
+    },
+// SETTINGS.TSX SPECIFIC
+    textinput: {
+      color: colors.text,
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      backgroundColor: colors.background,
+    },
+    contentContainer: {
+      backgroundColor: colors.background,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      height: '92%',
+      padding: 20,
+    },
+    settingsheader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    title: {
+      fontSize: 32,
+      fontWeight: 'bold',
+      color: colors.text,
+      paddingHorizontal: 12,
+    },
+    closeButton: {
+      position: 'absolute',
+      right: 1,
+      top: -5,
+      color: colors.text,
+    },
+    closeButtonText: {
+      fontSize: 26,
+      color: colors.text,
+    },
+    menuContainer: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    menuItem: {
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      color: colors.text,
+
+    },
+    menuText: {
+      color: colors.text,
+      fontSize: 16,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: colors.text,
+      marginVertical: 9,
+    },
+    profileCard: {
+      backgroundColor: 'rgba(218, 218, 218, 0.7)',
+      borderRadius: 8,
+      width: '95%',
+      height: 70,
+      marginBottom: 10,
+      alignSelf: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      justifyContent: 'space-between',
+    },
+    settingsprofilePicture: {
+      width: 60,
+      height: 60,
+      alignSelf: 'center',
+      paddingBottom: 140,
+      marginRight: 0,
+    },
+    profileName: {
+      fontSize: 25,
+      fontWeight: '400',
+      color: '#000000',
+      flex: 1,
+      textAlign: 'right',
+      marginLeft: 12,
+    },
+// ACCOUNTSETTINGS
+accountcontentContainer: {
+  backgroundColor: colors.background,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20,
+  padding: 20,
+  height: '80%',
+},
+accountheader: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 20,
+  color: colors.text,
+},
+
+backButton: {
+  marginRight: 10,
+},
+backButtonText: {
+  fontSize: 24,
+  color: colors.text,
+
+},
+accounttitle: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  color: colors.text,
+},
+accountdivider: {
+  height: 1,
+  backgroundColor: 'black',
+  marginVertical: 10,
+},
+input: {
+  borderWidth: 1,
+  borderColor: '#ccc',
+  color: colors.text,
+  padding: 10,
+  marginVertical: 10,
+},
+saveButton: {
+  color: colors.text,
+  padding: 10,
+  borderRadius: 5,
+  marginBottom: 15,
+},
+saveButtonText: {
+  color: colors.background,
+  textAlign: 'center',
+},  
+separator: {
+  marginVertical: 30,
+  height: 1,
+  width: '80%',
+},
+playlistsubHeader: {
+  fontSize: 16,
+  color: colors.text,
+  marginBottom: 25,
+  marginTop: 4,
+  flexWrap: 'wrap',
+  flexShrink: 0,
+},
+
   });
   themeListeners.forEach(listener => listener());
 };
@@ -277,7 +434,7 @@ export { styles };
 
 // * to-dos
 // - Better loading states
-// - Pull to refresh?
+// - Pull to refresh?    
 // - add in the search function - kind of works but could be better
 // - add in the playlist function - nothing there
 // - add in the social function, nothing there

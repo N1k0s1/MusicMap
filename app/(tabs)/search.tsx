@@ -102,13 +102,13 @@ export default function TabTwoScreen() {
         <Text style={styles.trackArtist}>{item.artist}</Text>
         <View style={styles.SearchemotionContainer}>
           <Pressable 
-            style={[styles.currentEmotion, !item.emotion && styles.addEmotionButton]}
+            style={[styles.currentEmotion, !item.emotion && styles.searchaddEmotionButton]}
             onPress={() => {
               setSelectedTrack(item);
               setIsEmotionSelectorVisible(true);
             }}
           >
-            <Text style={styles.currentEmotionText}>
+            <Text style={styles.searchEmotionText}>
               {item.emotion ? item.emotion : 'Add Emotion'}
             </Text>
           </Pressable>
@@ -121,7 +121,8 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       <Text style={styles.header}>Search</Text>
       <TextInput
-        placeholder="Search for your next emotion :=D"
+        placeholder="Search for your next emotion!"
+        placeholderTextColor={styles.header.color}
         value={searchQuery}
         onChangeText={setSearchQuery}
         onSubmitEditing={handleSearch}
