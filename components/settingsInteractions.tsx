@@ -140,4 +140,31 @@ export const deleteAccountMenu = async () => {
         ]
     );
 };
-// FUNCTION TO DELETE EMOTION HISTORY, WORKS WELL SHOWS SUCCESS ALERT, IF USER WANTS TO DELETE EMOTION HISTORY. I NEED TO ADD IT TO MY FIREBASE BACKEND SO IT ACTUALLLY DELETES EMOTIONS FROM THE DATABASE.
+
+export const toggleTheme = async () => {
+    Alert.alert(
+        'Toggle Theme', 'Would you like to toggle the theme? (This requires a restart of the app)',
+        [
+            { text: 'No', style: 'cancel' },
+            {
+                text: 'Yes',
+                style: 'destructive',
+                onPress: async () => {
+                    try {
+                        console.log('setting theme');
+                        const savedTheme = await AsyncStorage.getItem('theme');
+                        console.log(savedTheme);
+                        if (savedTheme === 'dark') {
+                          await AsyncStorage.setItem('theme', 'light');
+                        } else {
+                          await AsyncStorage.setItem('theme', 'dark');
+                        }
+                    } catch (error) {
+                        console.error('Error setting the theme', error);
+                        Alert.alert('Error', 'Failed to set theme');
+                    }
+                },
+            },
+        ]
+    );
+};// FUNCTION TO DELETE EMOTION HISTORY, WORKS WELL SHOWS SUCCESS ALERT, IF USER WANTS TO DELETE EMOTION HISTORY. I NEED TO ADD IT TO MY FIREBASE BACKEND SO IT ACTUALLLY DELETES EMOTIONS FROM THE DATABASE. 

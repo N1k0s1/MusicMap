@@ -2,13 +2,13 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Pressable, Modal, ScrollView} from 'react-native';
 import {BlurView} from 'expo-blur';
-import {signOut, deleteEmotionsHistory, deleteAccountMenu} from './settingsInteractions';
+import {signOut, deleteEmotionsHistory, deleteAccountMenu, toggleTheme} from './settingsInteractions';
 import {useNavigation} from '@react-navigation/native';
 import {lastfmGetUserInfo} from '@/utils/firebase';
 import ProfilePicture from '@/components/ProfilePicture';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AccountSettingsScreen } from '@/components/accountSettings';
-import {styles} from '../constants/mainstylesheet'
+import {reloadTheme, styles} from '../constants/mainstylesheet'
 
 type SettingsMenuProps = {
   visible: boolean;
@@ -107,14 +107,8 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
             <Pressable 
               style={styles.menuItem} 
               onPress={async () => {
-                console.log('setting theme');
-                const savedTheme = await AsyncStorage.getItem('theme');
-                console.log(savedTheme);
-                if (savedTheme === 'dark') {
-                  await AsyncStorage.setItem('theme', '');
-                } else {
-                  await AsyncStorage.setItem('theme', 'dark');
-                }
+                toggleTheme();
+                reloadTheme
                 setThemeUpdated(!themeUpdated);
               }}
             >
@@ -131,7 +125,12 @@ const SettingsMenu: React.FC<SettingsMenuProps> = ({visible, onClose}) => {
             </Pressable>
             <View style={styles.divider} />
             <Pressable style={styles.menuItem} onPress={() => {
-              onClose();
+              deleteEmotionsHistory();
+            }}>
+              <Text style={styles.menuText}>Privacy</Text>
+            </Pressable>
+            <View style={styles.divider} />
+            <Pressable style={styles.menuItem} onPress={() => {
               deleteEmotionsHistory();
             }}>
               <Text style={styles.menuText}>Delete Emotion History</Text>

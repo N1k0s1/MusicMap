@@ -66,6 +66,8 @@ interface EmotionEntry {
   trackTitle: string;
   artist: string;
   emotion: string;
+  group: string;
+  broadgroup: string;
   timestamp: number;
 }
 

@@ -59,7 +59,7 @@ export const AccountSettingsScreen: React.FC<AccountSettingsScreenProps> = ({ vi
           </View>
           <View style={styles.divider} />
           <Text style={styles.accounttitle}>Preferred Name</Text>
-          <TextInput style={styles.input} placeholder="Preferred Name" 
+          <TextInput style={styles.input} placeholder="Preferred Name." 
           placeholderTextColor={styles.accounttitle.color} defaultValue={realname}/>
           <Pressable style={styles.saveButton}>
             <Text style={styles.saveButtonText}>Save</Text>
