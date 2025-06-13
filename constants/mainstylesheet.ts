@@ -352,71 +352,123 @@ export const reloadTheme = async () => {
       textAlign: 'right',
       marginLeft: 12,
     },
-// ACCOUNTSETTINGS
-accountcontentContainer: {
-  backgroundColor: colors.background,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20,
-  padding: 20,
-  height: '80%',
-},
-accountheader: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginBottom: 20,
-  color: colors.text,
-},
+    // ACCOUNTSETTINGS
+    accountcontentContainer: {
+      backgroundColor: colors.background,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      padding: 20,
+      height: '80%',
+    },
+    accountheader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20,
+      color: colors.text,
+    },
 
-backButton: {
-  marginRight: 10,
-},
-backButtonText: {
-  fontSize: 24,
-  color: colors.text,
+    backButton: {
+      marginRight: 10,
+    },
+    backButtonText: {
+      fontSize: 24,
+      color: colors.text,
 
-},
-accounttitle: {
-  fontSize: 24,
-  fontWeight: 'bold',
-  color: colors.text,
-},
-accountdivider: {
-  height: 1,
-  backgroundColor: 'black',
-  marginVertical: 10,
-},
-input: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  color: colors.text,
-  padding: 10,
-  marginVertical: 10,
-},
-saveButton: {
-  color: colors.text,
-  padding: 10,
-  borderRadius: 5,
-  marginBottom: 15,
-},
-saveButtonText: {
-  color: colors.background,
-  textAlign: 'center',
-},  
-separator: {
-  marginVertical: 30,
-  height: 1,
-  width: '80%',
-},
-playlistsubHeader: {
-  fontSize: 16,
-  color: colors.text,
-  marginBottom: 25,
-  marginTop: 4,
-  flexWrap: 'wrap',
-  flexShrink: 0,
-},
-
-  });
+    },
+    accounttitle: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    accountdivider: {
+      height: 1,
+      backgroundColor: 'black',
+      marginVertical: 10,
+    },
+    input: {
+      borderWidth: 1,
+      borderColor: '#ccc',
+      color: colors.text,
+      padding: 10,
+      marginVertical: 10,
+    },
+    saveButton: {
+      color: colors.text,
+      padding: 10,
+      borderRadius: 5,
+      marginBottom: 15,
+    },
+    saveButtonText: {
+      color: colors.background,
+      textAlign: 'center',
+    },  
+    separator: {
+      marginVertical: 30,
+      height: 1,
+      width: '80%',
+    },
+    playlistsubHeader: {
+      fontSize: 16,
+      color: colors.text,
+      marginBottom: 25,
+      marginTop: 4,
+      flexWrap: 'wrap',
+      flexShrink: 0,
+    },
+    // Emotionselector.tsx - 
+    emotionheader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 20,
+      },
+      emotiontitle: {
+        fontSize: 20,
+        fontWeight: 'normal',
+        color: colors.text,
+      },
+      emotionsGrid: {
+        flex: 1,
+      },
+      gridContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        paddingBottom: 20,
+      },
+      emotionemotionButton: {
+        width: '31.8%',
+        aspectRatio: 1,
+        marginBottom: 15,
+        borderRadius: 15,
+        padding: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
+      emoji: {
+        fontSize: 40,
+        marginBottom: 10,
+      },
+      emojiImage: {
+        width: 40,
+        height: 40,
+        marginBottom: 10,
+        resizeMode: 'contain',
+      },
+      emotionName: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#000',
+     },
+    });
   themeListeners.forEach(listener => listener());
 };
 
