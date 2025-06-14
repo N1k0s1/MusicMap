@@ -258,15 +258,22 @@ export const reloadTheme = async () => {
       fontSize: 16,
       fontWeight: 'bold',
       color: colors.text,
-      marginBottom: 4,
+      marginBottom: 5,
     },
     searchaddEmotionButton: {
       backgroundColor: colors.text,
     },
-    searchemotionText: {
+    searchEmotionText: {
       color: colors.background,
       fontSize: 14,
       fontWeight: '500',
+    },
+    searchcurrentEmotion: {
+      backgroundColor: colors.text,
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 15,
+      alignSelf: 'flex-end',
     },
 // SETTINGS.TSX SPECIFIC
     textinput: {
@@ -468,6 +475,12 @@ export const reloadTheme = async () => {
         fontWeight: '600',
         color: '#000',
      },
+     playlistemotionContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      backgroundColor: colors.background,
+    },
     });
   themeListeners.forEach(listener => listener());
 };

@@ -26,3 +26,4 @@ export const deleteAccount = httpsCallable(functions, "deleteAccount");
 export const firstLogin = httpsCallable(functions, "firstLogin");
 export const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 export const fetchRealname = httpsCallable(functions, "fetchRealname");
+export const createPlaylists = httpsCallable(functions, "createPlaylists")
