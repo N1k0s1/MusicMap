@@ -27,3 +27,5 @@ export const firstLogin = httpsCallable(functions, "firstLogin");
 export const updateUserInfo = httpsCallable(functions, "updateUserInfo");
 export const fetchRealname = httpsCallable(functions, "fetchRealname");
 export const createPlaylists = httpsCallable(functions, "createPlaylists")
+export const fetchPlaylistname = httpsCallable(functions, "fetchPlaylistname")
+export const testSessionKey = httpsCallable(functions, "testSessionKey")

@@ -188,7 +188,7 @@ export const reloadTheme = async () => {
     emotionActions: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
+      gap: 11,
     },
     deleteButton: {
       backgroundColor: '#c70000',
@@ -219,6 +219,7 @@ export const reloadTheme = async () => {
       marginBottom: 20,
       marginTop: 8,
       paddingHorizontal: 10,
+      borderRadius: 12,
     },
     resultsContainer: {
       paddingBottom: 0,
@@ -306,7 +307,7 @@ export const reloadTheme = async () => {
     closeButton: {
       position: 'absolute',
       right: 1,
-      top: -5,
+      top: 5,
       color: colors.text,
     },
     closeButtonText: {
@@ -400,10 +401,12 @@ export const reloadTheme = async () => {
       marginVertical: 10,
     },
     saveButton: {
-      color: colors.text,
+      color: colors.background,
+      backgroundColor: colors.text,
       padding: 10,
       borderRadius: 5,
       marginBottom: 15,
+      textAlign: 'center',
     },
     saveButtonText: {
       color: colors.background,
@@ -481,6 +484,38 @@ export const reloadTheme = async () => {
       justifyContent: 'flex-start',
       backgroundColor: colors.background,
     },
+    playlistemotiontitle: {
+      fontSize: 24,
+      paddingBottom: 12,
+      fontWeight: 'normal',
+      color: colors.text,
+    },
+    playlistItem: {
+      padding: 10,
+      marginBottom: 10,
+      backgroundColor: colors.background,
+      borderRadius: 8,
+      borderColor: colors.background,
+      borderWidth: 2,
+    },
+    playlistList: {
+      marginTop: 22,
+      backgroundColor: colors.background,
+    },
+    playlistName: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: colors.text,
+    },
+    playlistGroup: {
+      fontSize: 13,
+      color: '#666',
+    },
+    noPlaylistsText: {
+      textAlign: 'center',
+      marginTop: 20,
+      color: colors.text,
+    },
     });
   themeListeners.forEach(listener => listener());
 };
@@ -495,12 +530,11 @@ export const subscribeToThemeChanges = (listener: () => void) => {
 // Initial load
 reloadTheme();
 
-export { styles };
+export {styles};
 
 // * to-dos
 // - Better loading states
 // - Pull to refresh?    
-// - add in the search function - kind of works but could be better
-// - add in the playlist function - nothing there
+// - add in the playlist function, functional kinda
 // - add in the social function, nothing there
 // - add in the settings menu, barebones

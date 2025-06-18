@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, StyleSheet, Pressable, Modal, ScrollView, Image} from 'react-native';
+import React, { useState } from 'react';
+import {View, Text, StyleSheet, Pressable, Modal, ScrollView, Image, TextInput, Alert} from 'react-native';
 import {emotionData} from './emotionData';
 import {BlurView} from 'expo-blur';
 import {styles} from '../constants/mainstylesheet'
@@ -20,7 +20,21 @@ interface PlaylistSelectorProps {
 }
 
 export default function PlaylistSelector({visible, onClose, onSelectPlaylist}: PlaylistSelectorProps) {
+    const [playlistName, setPlaylistName] = useState('');
+    const [selectedEmotion, setSelectedEmotion] = useState<Playlist | null>(null);
+    const [showNameInput, setShowNameInput] = useState(false);
+
     const handleCreatePlaylist = async (playlist: Playlist) => {
+        setSelectedEmotion(playlist);
+        setShowNameInput(true);
+    };
+
+    const confirmPlaylistName = async () => {
+        if (!playlistName.trim()) {
+            Alert.alert('Error, please enter a name');
+            return;
+        }
+
         try {
             const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
             console.log("Session Key:", sessionKey);
@@ -29,21 +43,26 @@ export default function PlaylistSelector({visible, onClose, onSelectPlaylist}: P
                 return;
             }
 
-            console.log("Creating playlist for group:", playlist.group);
+            console.log("Creating playlist for group:", selectedEmotion!.group);
             const response = await createPlaylists({
                 sessionKey,
-                group: playlist.group,
-                emotions: [playlist.group],
+                group: selectedEmotion!.group,
+                emotions: [selectedEmotion!.group],
+                name: playlistName.trim(),
             });
             console.log("Playlist created", response);
+            setShowNameInput(false);
+            setPlaylistName('');
+            onClose();
         } catch (error) {
             console.error("Error details", error);
+            Alert.alert('Error creating playlist, add some emotions!');
         }
     };
     return (
         <Modal
             visible={visible}
-            animationType="fade"
+            animationType="slide"
             transparent={true}
             onRequestClose={onClose}
         >
@@ -68,7 +87,7 @@ export default function PlaylistSelector({visible, onClose, onSelectPlaylist}: P
                                 .map((emotion) => (
                                     <Pressable
                                         key={emotion.group}
-                                        style={[styles.emotionemotionButton, { backgroundColor: emotion.color }]}
+                                        style={[styles.emotionemotionButton, {backgroundColor: emotion.color}]}
                                         onPress={() => handleCreatePlaylist({
                                             ...emotion,
                                             broadgroup: emotion.broadGroup
@@ -89,6 +108,34 @@ export default function PlaylistSelector({visible, onClose, onSelectPlaylist}: P
                     </ScrollView>
                 </View>
             </BlurView>
+            <Modal
+                visible={showNameInput}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => setShowNameInput(false)}
+            >
+                <BlurView
+                    intensity={16}
+                    style={styles.modalContainer}
+                    experimentalBlurMethod='dimezisBlurView'
+                >
+                    <View style={styles.contentContainer}>
+                        <Text style={styles.playlistemotiontitle}>Choose a playlist name!</Text>
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Playlist Name"
+                            value={playlistName}
+                            onChangeText={setPlaylistName}
+                        />
+                        <Pressable onPress={confirmPlaylistName} style={styles.saveButton}>
+                            <Text style={styles.saveButtonText}>Create Playlist</Text>
+                        </Pressable>
+                        <Pressable onPress={() => setShowNameInput(false)} style={styles.closeButton}>
+                            <Text style={styles.closeButtonText}>✕</Text>
+                        </Pressable>
+                    </View>
+                </BlurView>
+            </Modal>
         </Modal>
     );
 }
