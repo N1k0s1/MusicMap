@@ -115,13 +115,13 @@ export default function EmotionsScreen() {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#d51007" />
-      </View>
+      </View> 
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Emotions History</Text>
+      <Text style={styles.header}>Emotion History</Text>
       <FlatList
         data={emotions}
         renderItem={renderEmotion}
@@ -129,7 +129,7 @@ export default function EmotionsScreen() {
         contentContainerStyle={styles.emotionList}
         ListEmptyComponent={
           <Text style={styles.emptyText}>
-            No emotions recorded yet. Start by adding some emotions to your tracks!
+            No emotions recorded yet. Start by adding new emotions to your tracks!
           </Text>
         }
       />
@@ -139,4 +139,4 @@ export default function EmotionsScreen() {
 
 
 
-//todo - i made the currentEmotion go the colouur associated with the emotion, working, trying to figure out what else, maybe sort by category of emotion? eg. happy, sad, mad, etc.
+//todo - i made the currentEmotion go the color associated with the emotion, working, trying to figure out what else, maybe sort by category of emotion? eg. happy, sad, mad, etc.

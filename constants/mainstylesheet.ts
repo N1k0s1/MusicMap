@@ -149,10 +149,11 @@ export const reloadTheme = async () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: colors.background,
+      backgroundColor: '#f5f5f5',
       padding: 15,
       borderRadius: 10,
       marginBottom: 10,
+      marginTop: 6,
     },
     trackInfo: {
       flex: 1,
@@ -516,6 +517,14 @@ export const reloadTheme = async () => {
       marginTop: 20,
       color: colors.text,
     },
+    playlistEmotionText: {
+      color: colors.background,
+      fontSize: 14.5,
+      fontWeight: '500',
+    },
+    playlistAddEmotionButton: {
+      backgroundColor: '#000000',
+    },
     });
   themeListeners.forEach(listener => listener());
 };
@@ -532,7 +541,7 @@ reloadTheme();
 
 export {styles};
 
-// * to-dos
+//   to-dos
 // - Better loading states
 // - Pull to refresh?    
 // - add in the playlist function, functional kinda

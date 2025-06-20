@@ -3,15 +3,27 @@ import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { Pressable } from 'react-native';
 import PlaylistSelector from '@/components/playlistselector';
+import PlaylistViewer from '@/components/playlistViewer';
 import React, {useState, useEffect} from 'react';
 import { useRouter } from 'expo-router';
 import { fetchPlaylistname, testSessionKey } from '@/utils/firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
+import { FlatList, ActivityIndicator } from 'react-native';
 
 interface PlaylistResponse {
   success: boolean;
   playlists: Array<{ id: string; name: string }>;
 }
+
+interface PlaylistEntry {
+  id: string;
+  name: string;
+  timestamp?: number;
+  color?: string;
+  group?: string;
+}
+
 const formatDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleDateString('en-US', {
     month: 'short',
@@ -26,9 +38,11 @@ export default function Playlist() {
   const [isPlaylistSelectorVisible, setIsPlaylistSelectorVisible] = useState(false);
   const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
   const [playlistData, setPlaylistData] = useState<PlaylistEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedPlaylist, setSelectedPlaylist] = useState<{id: string, name: string} | null>(null);
+  const [isPlaylistViewerVisible, setIsPlaylistViewerVisible] = useState(false);
 
-  useEffect(() => {
-    const fetchPlaylistsOnMount = async () => {
+  const loadPlaylists = async () => {
       try {
         const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
         if (!sessionKey) {
@@ -41,37 +55,41 @@ export default function Playlist() {
         setPlaylistData(response.playlists);
       } catch (error) {
         console.error("Error fetching playlists", error);
+    } finally {
+      setIsLoading(false);
       }
     };
 
-    fetchPlaylistsOnMount();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      loadPlaylists();
+    }, [])
+  );
 
-  const renderPlaylists = () => {
-    if (playlistData.length === 0) {
-      return <Text style={styles.noPlaylistsText}>No playlist found</Text>;
-    }
-
+  const renderPlaylist = ({ item }: { item: PlaylistEntry }) => {
     return (
-      <View style={styles.playlistList}>
-        {playlistData.map((playlist) => (
-          <View key={playlist.id} style={styles.playlistItem}>
-            <Text style={styles.playlistName}>{playlist.name}</Text>
-            <Text style={styles.playlistGroup}>{playlist.group}</Text>
-            <Text style={styles.artist}>{playlist.id}</Text>
-            <Text style={styles.timestamp}>{formatDate(playlist.timestamp)}</Text>
+      <View style={styles.emotionemotionContainer}>
+        <View style={styles.trackInfo}>
+          <Text style={styles.trackTitle}>{item.name}</Text>
+          <Text style={styles.artist}>{item.id}</Text>
+          <Text style={styles.timestamp}>
+            {item.timestamp ?formatDate(item.timestamp): ''}
+          </Text>
+        </View>
             <View style={styles.emotionActions}>
-              <View style={[styles.emotionTag, { backgroundColor: playlist.color || '#000000' }]}>
-                <Text style={styles.emotionText}>{playlist.emotion || 'No emotion'}</Text>
-              </View>
+          <View style={[styles.emotionTag, {backgroundColor: item.color || '#000000'}]}>
+            <Text style={styles.playlistEmotionText}>{item.group}</Text>
+             </View>
               <Pressable 
                 style={styles.deleteButton}
+                onPress={() => {
+                  setSelectedPlaylist({id: item.id, name: item.name});
+                  setIsPlaylistViewerVisible(true);
+                }}
               >
-                <Text style={styles.deleteText}>×</Text>
+                <Text style={styles.deleteText}>→</Text>
               </Pressable>          
             </View>
-          </View>
-        ))}
       </View>
     );
   };
@@ -81,14 +99,23 @@ export default function Playlist() {
     setIsPlaylistSelectorVisible(false);
   };
 
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>Loading playlists....</Text>
+        <ActivityIndicator size="large" color="#d51007" />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Playlists</Text>
       <Text style={styles.playlistsubHeader}>Make a new playlist!</Text>
       <View style={styles.playlistemotionContainer}>
-        <Pressable 
-          style={[styles.currentEmotion, !selectedEmotion && styles.searchaddEmotionButton]}
-          onPress={() => setIsPlaylistSelectorVisible(true)}
+        <Pressable
+          style={[styles.currentEmotion, !selectedEmotion && styles.playlistAddEmotionButton]}
+          onPress={() => setIsPlaylistSelectorVisible(false)}
         >
           <Text style={styles.searchEmotionText}>
             {selectedEmotion || 'Create a new playlist!'}
@@ -96,14 +123,35 @@ export default function Playlist() {
         </Pressable>
       </View>
 
-      {/* Render the playlists */}
-      {renderPlaylists()}
+      <FlatList
+        data={playlistData}
+        renderItem={renderPlaylist}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.emotionList}
+        ListEmptyComponent={
+          <Text style={styles.emptyText}>
+            No playlists found. Start by creating your first playlist!
+          </Text>
+        }
+      />
 
       <PlaylistSelector
         visible={isPlaylistSelectorVisible}
         onClose={() => setIsPlaylistSelectorVisible(false)}
         onSelectPlaylist={handleSelectPlaylist}
       />
+
+      {selectedPlaylist && (
+        <PlaylistViewer
+          playlistId={selectedPlaylist.id}
+          playlistName={selectedPlaylist.name}
+          visible={isPlaylistViewerVisible}
+          onClose={() => {
+            setIsPlaylistViewerVisible(false);
+            setSelectedPlaylist(null);
+          }}
+        />
+      )}
     </View>
   );
 }
