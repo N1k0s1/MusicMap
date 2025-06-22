@@ -49,6 +49,7 @@ export default function PlaylistSelector({visible, onClose, onSelectPlaylist}: P
                 group: selectedEmotion!.group,
                 emotions: [selectedEmotion!.group],
                 name: playlistName.trim(),
+                color: selectedEmotion!.color,
             });
             console.log("Playlist created", response);
             setShowNameInput(false);

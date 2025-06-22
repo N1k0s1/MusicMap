@@ -38,5 +38,4 @@ yarn-error.*
 *.tsbuildinfo
 
 google-services.json
-
 # other things so that this can possibly have some kind of subscription in the future, will probably edit this later

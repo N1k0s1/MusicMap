@@ -14,11 +14,22 @@ ii. Blends are created in one of 2 ways
 a. The first way to create a blend is to blend 2 emotions together to create a playlist. This creates a mix of different emotions, creating endless possibilities.     
 b. The second way to create a blend is to blend the music taste and/or emotions of 2 people's music into a playlist, aiming to find common music ground.
 
+## What is currently working?
+### Home
+Settings page launches correctly.   
+Emotions are selected corectly  
+### Social
+Currently just a placeholder, no proper functionality
+### Search
+### Playlists
+### Emotions
+
+
 ## Beta Testing
 If you are interested in participating in beta testing, let me know via [email](mailto:niko@apringle.tech)!
 
 ## UI/UX Planning
 After doing some UI planning, there are preliminary renders of how I'd like the app to look below, as this is still a WIP app. If you have any feedback, then it'd be great if you could reach out on Slack, make an issue for it, or let me know via [email](mailto:niko@apringle.tech)!
-### [Prototype Link](https://www.figma.com/proto/kARWna7bAzRvwWTW6lheeg/MusicMap-UI?node-id=0-1&t=7K76XodofR7tE2m8-1)
-### [Link to view full file](https://www.figma.com/design/kARWna7bAzRvwWTW6lheeg/MusicMap-UI?node-id=0-1&t=7K76XodofR7tE2m8-1)
+### [Figma Prototype Link](https://www.figma.com/proto/kARWna7bAzRvwWTW6lheeg/MusicMap-UI?node-id=0-1&t=7K76XodofR7tE2m8-1)
+### [Link To View File](https://www.figma.com/design/kARWna7bAzRvwWTW6lheeg/MusicMap-UI?node-id=0-1&t=7K76XodofR7tE2m8-1)
 

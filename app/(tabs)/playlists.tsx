@@ -46,7 +46,7 @@ export default function Playlist() {
       try {
         const sessionKey = await AsyncStorage.getItem('lastfm_session_key');
         if (!sessionKey) {
-          console.error("No session key found");
+          console.error("No session key found.");
           return;
         }
 
@@ -77,7 +77,7 @@ export default function Playlist() {
           </Text>
         </View>
             <View style={styles.emotionActions}>
-          <View style={[styles.emotionTag, {backgroundColor: item.color || '#000000'}]}>
+          <View style={[styles.emotionTag, {backgroundColor: item.color}]}>
             <Text style={styles.playlistEmotionText}>{item.group}</Text>
              </View>
               <Pressable 
@@ -88,7 +88,7 @@ export default function Playlist() {
                 }}
               >
                 <Text style={styles.deleteText}>→</Text>
-              </Pressable>          
+              </Pressable>
             </View>
       </View>
     );
@@ -114,11 +114,11 @@ export default function Playlist() {
       <Text style={styles.playlistsubHeader}>Make a new playlist!</Text>
       <View style={styles.playlistemotionContainer}>
         <Pressable
-          style={[styles.currentEmotion, !selectedEmotion && styles.playlistAddEmotionButton]}
+          style={[styles.playlistCurrentEmotion, !selectedEmotion && styles.playlistAddEmotionButton]}
           onPress={() => setIsPlaylistSelectorVisible(false)}
         >
           <Text style={styles.searchEmotionText}>
-            {selectedEmotion || 'Create a new playlist!'}
+            {'Create a new playlist!'}
           </Text>
         </Pressable>
       </View>
@@ -134,14 +134,13 @@ export default function Playlist() {
           </Text>
         }
       />
-
       <PlaylistSelector
         visible={isPlaylistSelectorVisible}
         onClose={() => setIsPlaylistSelectorVisible(false)}
         onSelectPlaylist={handleSelectPlaylist}
       />
 
-      {selectedPlaylist && (
+      {isPlaylistViewerVisible && selectedPlaylist && (
         <PlaylistViewer
           playlistId={selectedPlaylist.id}
           playlistName={selectedPlaylist.name}

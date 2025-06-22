@@ -35,7 +35,7 @@ export default function EmotionSelector({ visible, onClose, onSelectEmotion }: E
           <View style={styles.emotionheader}>
             <Text style={styles.emotiontitle}>How does this song make you feel?</Text>
             <Pressable onPress={onClose} style={styles.closeButton}>
-              <Text style={styles.closeButtonText}>✕</Text>
+              <Text style={styles.closeButtonText}>x</Text>
             </Pressable>
           </View>
           

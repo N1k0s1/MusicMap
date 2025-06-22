@@ -74,7 +74,10 @@ export default function TabTwoScreen() {
           trackId: selectedTrack.id,
           trackTitle: selectedTrack.title,
           artist: selectedTrack.artist,
-          emotion: emotion.name
+          group: emotion.group,
+          broadgroup: emotion.broadgroup,
+          emotion: emotion.name,
+          color: emotion.color
         });
 
         setTrackEmotions(prev => {

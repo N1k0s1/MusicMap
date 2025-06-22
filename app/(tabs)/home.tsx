@@ -68,6 +68,7 @@ interface EmotionEntry {
   emotion: string;
   group: string;
   broadgroup: string;
+  color: string;
   timestamp: number;
 }
 
@@ -263,7 +264,8 @@ export default function Home() {
           artist: selectedTrack.artist,
           group: emotion.group,
           broadgroup: emotion.broadgroup,
-          emotion: emotion.name
+          emotion: emotion.name,
+          color: emotion.color
           });
 
         // update locally immediately with the new emotion
