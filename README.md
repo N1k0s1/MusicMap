@@ -16,14 +16,11 @@ b. The second way to create a blend is to blend the music taste and/or emotions 
 
 ## What is currently working?
 ### Home
-Settings page launches correctly.   
-Emotions are selected corectly  
 ### Social
 Currently just a placeholder, no proper functionality
 ### Search
 ### Playlists
 ### Emotions
-
 
 ## Beta Testing
 If you are interested in participating in beta testing, let me know via [email](mailto:niko@apringle.tech)!

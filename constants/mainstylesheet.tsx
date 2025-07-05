@@ -194,6 +194,7 @@ const createStyles = (colors: typeof ColorThemes.light) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 11,
+      backgroundColor: colors.container,
     },
     deleteButton: {
       backgroundColor: '#c70000',
@@ -533,6 +534,13 @@ const createStyles = (colors: typeof ColorThemes.light) =>
       borderRadius: 15,
       alignSelf: 'flex-end',
       marginBottom: 17,
+    },
+    playlistheader: {
+      fontSize: 34,
+      fontWeight: 'bold',
+      color: colors.text,
+      marginBottom: 6,
+      marginTop: 15,
     },
   });
 

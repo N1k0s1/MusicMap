@@ -73,20 +73,11 @@ export default function PlaylistViewer({playlistId, playlistName, visible, onClo
 
     const renderTrack = ({item}: {item: Track}) => (
         <View style={styles.trackItem}>
-            {item.albumArt ? <Image source={{ uri: item.albumArt }} style={styles.SearchalbumArt} /> : null}
+            {item.albumArt ? <Image source={{uri: item.albumArt}} style={styles.SearchalbumArt} /> : null}
         <View style={styles.trackTextContainer}>
             <Text style={styles.searchtrackTitle}>{item.title}</Text>
             <Text style={styles.trackArtist}>{item.artist}</Text>
             <View style={styles.emotionContainer}>
-                <Pressable
-                    style={[
-                        styles.currentEmotion,
-                        !item.emotion && styles.noEmotion
-                    ]}
-                    onPress={() => {
-                    }}
-                >
-               </Pressable>
              </View>
            </View>
          </View>
@@ -107,7 +98,7 @@ export default function PlaylistViewer({playlistId, playlistName, visible, onClo
                 >
                     <View style={styles.contentContainer}>
                         <View style={styles.emotionheader}>
-                            <Text style={styles.emotionheader}>{playlistName}</Text>
+                            <Text style={styles.playlistheader}>{playlistName}</Text>
                             <Pressable onPress={onClose} style={styles.closeButton}>
                                 <Text style={styles.closeButtonText}>x</Text>
                             </Pressable>

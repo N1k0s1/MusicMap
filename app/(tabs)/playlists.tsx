@@ -77,7 +77,7 @@ export default function Playlist() {
           </Text>
         </View>
             <View style={styles.emotionActions}>
-          <View style={[styles.emotionTag, {backgroundColor: item.color}]}>
+          <View style={[styles.emotionTag, {backgroundColor: item.color} || styles.trackInfo]}>
             <Text style={styles.playlistEmotionText}>{item.group}</Text>
              </View>
               <Pressable 
@@ -115,7 +115,7 @@ export default function Playlist() {
       <View style={styles.playlistemotionContainer}>
         <Pressable
           style={[styles.playlistCurrentEmotion, !selectedEmotion && styles.playlistAddEmotionButton]}
-          onPress={() => setIsPlaylistSelectorVisible(false)}
+          onPress={() => setIsPlaylistSelectorVisible(true)}
         >
           <Text style={styles.searchEmotionText}>
             {'Create a new playlist!'}

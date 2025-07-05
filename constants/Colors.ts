@@ -8,7 +8,7 @@ export const ColorThemes = {
     text: '#000',
     background: '#fff',
     tint: tintColorLight,
-    container: 'grey',
+    container: '#f5f5f5',
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
   },
