@@ -23,6 +23,9 @@ export const ColorThemes = {
 };
 
 export const getCurrentTheme = async () => {
+  if (typeof window === 'undefined') {
+    return 'light';
+  }
   const savedTheme = await AsyncStorage.getItem('theme');
   console.log(savedTheme)
   return savedTheme === 'dark' ? 'dark' : 'light';

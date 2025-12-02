@@ -23,7 +23,7 @@ export default function LoginScreen() {
       router.replace('/(tabs)/home');
     } catch (err) {
       console.log('Login error:', err);
-      Alert.alert('Oops!', "You c ouldn't be logged in, please check your credentials and try again.");
+      Alert.alert('Oops!', "You couldn't be logged in, please check your credentials and try again.");
     } finally {
       setLoading(false);
     }
