@@ -3,15 +3,15 @@ MusicMap is a first, a purpose built platform to link emotions with music, and t
 
 Another feature that the app includes is the ability to create your own playlists based on emotions, think a happy playlist filled with songs you associate upbeat feelings with, or a excited playlist, filled with high tempo upbeat music, making sure you have a playlist for every occasion. 
 
-## Features
-1. Links through Last.FM to get your listening history  
-2. Allows you to associate & link emotions with music from either your listening history, or from the searchbar. As well as linking emotions, there is also support for adding a description of how the song makes you feel.
+## Planned Features
+1. Links through Last.FM to get your listening history  **Complete**
+2. Allows you to associate & link emotions with music from either your listening history, or from the searchbar. As well as linking emotions, there is also support for adding a description of how the song makes you feel. **Complete**
 3. Allows you to share feelings on your story with friends, and you're able to add friends via friend codes. You'll also be able to share the short descriptions you write.
 4. You can add notes to your stories, similar to the Instagram Notes feature, with a focus on short and sweet notes about music you listen to.
-4. Allows users to create playlists and blends  
-i. Playlists are created via emotions, and existing or new music can be used, leaving the option for the user to choose.  
+4. Allows users to create playlists and blends  **In Progress**
+i. Playlists are created via emotions, and existing or new music can be used, leaving the option for the user to choose.  **In Progress**
 ii. Blends are created in one of 2 ways    
-a. The first way to create a blend is to blend 2 emotions together to create a playlist. This creates a mix of different emotions, creating endless possibilities.     
+a. The first way to create a blend is to blend 2 emotions together to create a playlist. This creates a mix of different emotions, creating endless possibilities.    **In Progress** 
 b. The second way to create a blend is to blend the music taste and/or emotions of 2 people's music into a playlist, aiming to find common music ground.
 
 ## What is currently working?
