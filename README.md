@@ -3,6 +3,8 @@ MusicMap is a first, a purpose built platform to link emotions with music, and t
 
 Another feature that the app includes is the ability to create your own playlists based on emotions, think a happy playlist filled with songs you associate upbeat feelings with, or a excited playlist, filled with high tempo upbeat music, making sure you have a playlist for every occasion. 
 
+# [Demo](https://cdn.hackclub.com/019c727e-bc97-7225-8095-f038277b56dd/screenrecording_01-19-2026_08-31-24_1.mp4)
+
 ## Planned Features
 1. Links through Last.FM to get your listening history  **Complete**
 2. Allows you to associate & link emotions with music from either your listening history, or from the searchbar. As well as linking emotions, there is also support for adding a description of how the song makes you feel. **Complete**
